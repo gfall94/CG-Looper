@@ -6,13 +6,13 @@ const Looper = (() => {
     xPositions:'220,190,160,130,100,70,30', rearY:250, frontY:0,
     cooldownMode:'combined', cooldownSeconds:60, cooldownTemp:35, cooldownRepeats:60, postTempSeconds:0,
     fan:100, pause:2, clearLast:true, purge:true, purgeLength:50, purgeSpeed:200,
-    parkZ:20.2};
+    parkZ:20.2, maxOutputMB:1024};
   const numberSpec = {
     loops:[1,100,true],bendBase:[0,250],bendDepth:[0.1,100],bends:[1,30,true],bendSpeed:[0.1,20],
     sweepZ:[0.2,250],sweepSpeed:[1,200],fastSpeed:[1,200],centerPasses:[0,10,true],
     rearY:[0,256],frontY:[0,256],cooldownSeconds:[0,7200,true],cooldownTemp:[15,80],
     cooldownRepeats:[1,120,true],postTempSeconds:[0,7200,true],fan:[0,100,true],pause:[0,3600,true],purgeLength:[1,100],
-    purgeSpeed:[30,600],parkZ:[0.2,250]
+    purgeSpeed:[30,600],parkZ:[0.2,250],maxOutputMB:[250,4096,true]
   };
   const END = ';===== date: 20230428 =====================';
   const PARK = /M400 ; wait all motion done\nM17 S\nM17 Z0\.4[^\n]*\n/;
@@ -86,7 +86,8 @@ const Looper = (() => {
     if(s.sweepZ>info.maxZ||s.parkZ>info.maxZ) errors.push('Ausräum-/Parkhöhe liegt außerhalb des Bauraums.');
     if(s.rearY<=s.frontY) errors.push('Hintere Y-Position muss größer als die vordere sein.');
     if(!s.centerPasses&&!s.rake&&!s.fastRake) errors.push('Mindestens ein Ausräummuster wählen.');
-    if(s.loops*info.bytes>250*1024*1024) errors.push('Ausgabe zu groß (maximal 250 MB). Bitte weniger Loops wählen.');
+    const outputBytes=s.loops*info.bytes;
+    if(outputBytes>s.maxOutputMB*1024*1024) errors.push(`Geschätzte Ausgabe ${Math.ceil(outputBytes/1024/1024)} MB überschreitet das eingestellte Limit von ${s.maxOutputMB} MB. Limit erhöhen oder weniger Drucke wählen.`);
     if(errors.length) throw Error(errors.join('\n'));
     return s;
   }
@@ -165,7 +166,7 @@ const Looper = (() => {
     return start+body+end;
   }
   function generate(info,input) {
-    const s=validate(info,input), parts=[`; CG_LOOPER v1.4 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
+    const s=validate(info,input), parts=[`; CG_LOOPER v1.5 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
     const cleared=prepare(info,s,true), untouched=prepare(info,s,false);
     for(let i=1;i<=s.loops;i++) {
       parts.push(`\n; === LOOP ${i} OF ${s.loops} ===\n`,(i<s.loops||s.clearLast)?cleared:untouched,`\n; === END OF LOOP ${i} ===\n`);
@@ -177,8 +178,10 @@ const Looper = (() => {
     else if(s.cooldownMode==='temperature') warnings.push(`Der P1S erhält einen Wartebefehl für ${n(s.cooldownTemp)} °C. Die Freigabe erfolgt durch seine Firmware; Toleranzen und mögliche Zeitlimits bleiben wirksam. Eine strikt eingehaltene Temperaturgrenze ist mit diesem G-Code nicht garantiert.`);
     else warnings.push('Zeitgesteuerte Kühlung: Die App prüft keine tatsächliche Betttemperatur. Wartezeit am Gerät passend einstellen.');
     if(s.sweepZ>=info.height) warnings.push('Ausräumhöhe liegt auf/über der Bauteilhöhe – möglicherweise kein Kontakt.');
+    const estimatedOutputBytes=s.loops*info.bytes;
+    if(estimatedOutputBytes>250*1024*1024) warnings.push(`Große Ausgabe: ungefähr ${Math.ceil(estimatedOutputBytes/1024/1024)} MB G-Code. Der Browser kann während des Exports ein Mehrfaches davon im Arbeitsspeicher benötigen.`);
     const preview=clearCode(s),motion=motionPreview(info,s,preview);
-    return {parts,settings:s,warnings,preview,motion,timing:timing(info,s,motion),clearCount:s.loops-(s.clearLast?0:1)};
+    return {parts,settings:s,warnings,preview,motion,timing:timing(info,s,motion),clearCount:s.loops-(s.clearLast?0:1),estimatedOutputBytes};
   }
   function scheduleJobs(jobs,order) {
     if(!['alternating','batch'].includes(order))throw Error('Ungültige Druckreihenfolge.');
@@ -193,12 +196,13 @@ const Looper = (() => {
   function generateQueue(jobs,input,order='alternating') {
     const plan=scheduleJobs(jobs,order),total=plan.length;
     if(jobs.length>1&&(jobs.some(j=>!j.info.nozzleDiameter)||new Set(jobs.map(j=>j.info.nozzleDiameter)).size!==1))throw Error('Alle Dateien müssen dieselbe angegebene Düsendurchmesser-Konfiguration verwenden.');
-    if(jobs.reduce((v,j)=>v+j.info.bytes*j.count,0)>250*1024*1024)throw Error('Gesamtausgabe zu groß (maximal 250 MB).');
     const prepared=jobs.map(j=>{
       const s=validate(j.info,{...input,loops:1,sweepZ:j.sweepZ});
       return {s,clear:prepare(j.info,s,true),final:prepare(j.info,s,false),details:generate(j.info,s)};
     });
-    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.4 | ${total} prints | ${jobs.length} files | ${order}\n`];
+    const estimatedOutputBytes=jobs.reduce((v,j)=>v+j.info.bytes*j.count,0),limitMB=prepared[0].s.maxOutputMB;
+    if(estimatedOutputBytes>limitMB*1024*1024)throw Error(`Geschätzte Gesamtausgabe ${Math.ceil(estimatedOutputBytes/1024/1024)} MB überschreitet das eingestellte Limit von ${limitMB} MB. Limit erhöhen oder weniger Drucke wählen.`);
+    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.5 | ${total} prints | ${jobs.length} files | ${order}\n`];
     const counts=jobs.map(()=>0);let printSeconds=0,motionSeconds=0,grams=0;
     plan.forEach((index,step)=>{
       const j=jobs[index],p=prepared[index],clear=step<total-1||settings.clearLast;
@@ -210,9 +214,11 @@ const Looper = (() => {
       grams+=j.info.grams;
     });
     const waits=waitTimes(settings),knownSeconds=printSeconds===null||motionSeconds===null?null:printSeconds+waits.fixedSeconds+motionSeconds;
-    return {parts,settings,plan,grams,clearCount:waits.clearCount,details:prepared.map(p=>p.details),
+    const warnings=[...new Set(prepared.flatMap(p=>p.details.warnings))];
+    if(estimatedOutputBytes>250*1024*1024)warnings.push(`Große Ausgabe: ungefähr ${Math.ceil(estimatedOutputBytes/1024/1024)} MB G-Code bei ${limitMB} MB eingestelltem Limit. Der Browser kann während des Exports ein Mehrfaches davon im Arbeitsspeicher benötigen.`);
+    return {parts,settings,plan,grams,clearCount:waits.clearCount,details:prepared.map(p=>p.details),estimatedOutputBytes,
       timing:{waits,singlePrintSeconds:jobs.length===1?jobs[0].info.printSeconds:null,printSeconds,motionSeconds,knownSeconds},
-      warnings:[...new Set(prepared.flatMap(p=>p.details.warnings))]};
+      warnings};
   }
   return {defaults,numberSpec,analyze,validate,generate,generateQueue,scheduleJobs,clearCode,suggestSweepZ,parseDuration,waitTimes,motionPreview};
 })();

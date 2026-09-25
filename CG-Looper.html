@@ -5,7 +5,7 @@
 <style>
 :root{color-scheme:dark;--bg:#101518;--card:#1a2227;--line:#344047;--text:#eaf0ed;--muted:#a7b5ba;--accent:#c5fa72;--orange:#f5b96e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 'Segoe UI',sans-serif}button,input,select{font:inherit}button,a,input,select,summary{outline-offset:4px}a{color:var(--accent)}button{cursor:pointer;border:1px solid var(--line);background:#28333a;color:var(--text);border-radius:8px;padding:10px 15px;font-weight:600}button:hover{border-color:var(--accent)}button:disabled{opacity:.4;cursor:not-allowed}button.primary{background:var(--accent);color:#172111;border-color:var(--accent)}header{border-bottom:1px solid var(--line);padding:22px 4vw;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-size:21px;font-weight:750;letter-spacing:-.7px}.brand b{color:var(--accent)}.badge{font:11px/1.5 Consolas,monospace;text-transform:uppercase;letter-spacing:1.2px;border:1px solid var(--line);padding:6px 10px;border-radius:20px;color:var(--muted)}main{max-width:1480px;margin:0 auto;padding:36px 4vw 60px}.eyebrow{color:var(--accent);text-transform:uppercase;font:12px Consolas,monospace;letter-spacing:2px}h1{font-size:clamp(30px,4vw,48px);line-height:1.12;letter-spacing:-1.8px;margin:13px 0}h2{font-size:18px;margin:0 0 16px}h3{font-size:14px;margin:0 0 8px;color:var(--accent)}p{margin:8px 0 18px}.muted,small{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,1fr);gap:22px;margin-top:28px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:23px;margin-bottom:18px}.drop{display:block;text-align:center;border:1px dashed #667c67;border-radius:10px;padding:25px 16px;background:#1e2925;cursor:pointer}.drop.drag{background:#33462c}.drop strong{display:block;font-size:17px;margin-bottom:5px}.drop input{display:block;margin:14px auto 0;max-width:100%;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:block;font-size:13px;color:var(--muted)}.field input,.field select{width:100%;margin-top:6px;padding:10px 11px;border:1px solid #48565d;border-radius:7px;color:var(--text);background:#121a1e}.field small{display:block;font-size:11px;margin-top:5px;line-height:1.4}.field.wide{grid-column:1/-1}.check{display:flex;align-items:flex-start;gap:9px;font-size:13px;margin:13px 0}.check input{accent-color:var(--accent);width:17px;height:17px;margin-top:2px;flex-shrink:0}details{border-top:1px solid var(--line);margin-top:20px;padding-top:15px}summary{cursor:pointer;font-weight:600;margin-bottom:15px}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{font-size:12px;padding:8px 12px}.status{border-radius:8px;padding:12px 14px;background:#25322b;border:1px solid #496442;white-space:pre-line;margin-top:16px;font-size:13px;overflow-wrap:anywhere}.status.error{border-color:#b66760;background:#392829;color:#ffcfcb}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0}.stat{background:#11191d;padding:14px 10px;border-radius:8px}.stat strong{display:block;font-size:24px;letter-spacing:-1px}.stat span{font-size:11px;color:var(--muted)}.steps{display:flex;gap:6px;align-items:center;margin:16px 0;flex-wrap:wrap}.steps span{border:1px solid var(--line);border-radius:5px;padding:7px 9px;font-size:12px}.steps i{color:var(--accent);font-style:normal}.diagram{width:100%;height:220px;display:block;background:#131b20;border-radius:9px}.note{font-size:12px;color:var(--muted);margin-top:12px}.warning{color:var(--orange)}pre{font:12px/1.6 Consolas,monospace;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow:auto;background:#10181d;padding:15px;border-radius:8px}ul{padding-left:18px;margin:10px 0}li{margin:6px 0}.export{display:grid;gap:9px}.export button{padding:14px}.right{align-self:start;position:sticky;top:16px}.foot{margin:12px 0;font-size:11px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:20px 4vw 28px;text-align:center;font-size:12px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:940px){.layout{grid-template-columns:1fr}.right{position:static}main{padding-top:24px}}@media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:17px}.badge{display:none}.stat strong{font-size:20px}}
 .time-summary{border-bottom:1px solid var(--line);margin:20px 0;padding-bottom:14px}.time-summary dl{margin:0}.time-summary dl>div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:13px}.time-summary dt{color:var(--muted)}.time-summary dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}.time-summary .total{border-top:1px solid var(--line);margin-top:7px;padding-top:12px;font-weight:700}.time-summary .total dd{color:var(--accent)}.sequence{margin:20px 0}.sequence svg{width:100%;display:block;background:#131b20;border-radius:9px}.sequence-stage{font-weight:600;margin-top:10px;color:var(--accent)}.sequence input[type=range]{padding:0;accent-color:var(--accent)}.sequence-controls{align-items:end;margin-top:10px}.sequence-controls .field{display:flex;align-items:center;gap:6px}.sequence-controls select{margin:0;width:auto;padding:7px}.right{position:static}.job-card{display:grid;grid-template-columns:104px minmax(0,1fr);gap:13px;border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:14px}.job-card.selected{border-color:var(--accent);background:#202c25}.job-card figure{margin:0}.job-thumb{display:block;width:100%;height:86px;object-fit:contain;background:#111a1e;border-radius:6px}.job-card figcaption{font-size:11px;color:var(--muted);margin-top:5px}.job-select{font-size:13px;text-align:left;overflow-wrap:anywhere;width:100%;padding:6px 8px}.job-card .toolbar{align-items:end;margin-top:8px}.job-count{max-width:82px}.queue-order{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}.queue-order span{background:#2c3a30;border-radius:4px;padding:3px 9px;color:var(--accent);font:12px Consolas,monospace}@media(max-width:480px){.job-card{grid-template-columns:76px minmax(0,1fr);gap:8px;padding:9px}.job-card .toolbar{gap:5px}.job-card .toolbar button{padding:7px}}</style></head><body>
-<header><div class="brand">CG <b>Looper</b> <span class="muted">/</span> Studio</div><span class="badge">Lokal im Browser · P1S · v1.4</span></header>
+<header><div class="brand">CG <b>Looper</b> <span class="muted">/</span> Studio</div><span class="badge">Lokal im Browser · P1S · v1.5</span></header>
 <main><div class="eyebrow">Print. Release. Repeat.</div><h1>Ein Druck. Viele Durchläufe.</h1><p class="muted">G-Code laden, Biegen und Ausräumen einstellen, Druckserie exportieren. Alles bleibt auf deinem Rechner.</p>
 <div class="layout"><section>
 <div class="card"><h2>01 &nbsp; Druckdateien</h2><label class="drop" id="drop"><strong>G-Code-Dateien gemeinsam auswählen oder ablegen</strong><span class="muted">Mehrfachauswahl · G-Code und G-Code-3MF · Bambu Lab P1S</span><input id="file" type="file" multiple accept=".gcode,.3mf" aria-label="Druckdateien hinzufügen"></label><div id="jobList"></div><div class="toolbar" style="margin-top:12px"><button id="clearJobs" disabled>Liste leeren</button></div><label class="field" id="plateField" hidden>G-Code-Platte<select id="plate"></select></label><div id="fileInfo" class="note">Auch .gcode.3mf wird direkt geöffnet. Kein Entpacken notwendig.</div><div id="status" role="status" aria-live="polite" hidden></div></div>
@@ -21,7 +21,7 @@
 <text x="35" y="23" fill="#a7b5ba" font-size="14">Draufsicht · XY</text><text x="305" y="23" fill="#a7b5ba" font-size="14">Z / mm</text><text x="12" y="59" fill="#a7b5ba" font-size="13">Y</text><text x="33" y="286" fill="#a7b5ba" font-size="13">0</text><text x="193" y="286" fill="#a7b5ba" font-size="13">X → 256</text><text x="269" y="46" fill="#a7b5ba" font-size="13">hinten</text><text x="104" y="304" fill="#a7b5ba" font-size="13">vorne</text>
 <path d="M345 57.5V265M337 57.5H353M337 161.25H353M337 265H353" stroke="#577079"/><text x="357" y="62" fill="#a7b5ba" font-size="13">250</text><text x="357" y="166" fill="#a7b5ba" font-size="13">125</text><text x="357" y="269" fill="#a7b5ba" font-size="13">0</text>
 <path id="sequencePlan" fill="none" stroke="#52666f" stroke-width="1.5"/><path id="sequencePassed" fill="none" stroke="#c5fa72" stroke-width="2"/><path id="sequenceActive" fill="none" stroke="#f5b96e" stroke-width="3"/><circle id="sequenceHead" r="5" fill="#f5b96e" visibility="hidden"/><circle id="sequenceZ" cx="345" r="6" fill="#72cfeb" visibility="hidden"/>
-</svg><div id="sequenceStage" class="sequence-stage" role="status">Keine Bewegungsvorschau</div><p id="sequencePosition" class="note">X — · Y — · Z —</p><label class="field">Fortschritt der Bewegungen<input id="sequenceSeek" type="range" min="0" max="1000" value="0" disabled></label><div class="toolbar sequence-controls"><button id="sequencePlay" type="button" disabled>Abspielen</button><button id="sequenceReset" type="button" disabled>Zurücksetzen</button><label class="field">Tempo<select id="sequenceSpeed" disabled><option value="1">1×</option><option value="4" selected>4×</option><option value="10">10×</option></select></label></div><p class="foot">Schematische Bewegungsvorschau aus den erzeugten Fahrbefehlen. Grün: gefahren · Orange: aktuelle Fahrt · Blau: Z-Position. Keine Kollisionssimulation. Kühlpausen werden nicht animiert.</p></div><div class="note" id="estimate">Lade eine Datei für Bauteilhöhe und Verbrauch.</div><div class="note" id="warnings"></div><details><summary>Ausräum-G-Code ansehen</summary><pre id="preview">Nach dem Laden erscheint hier die erzeugte Sequenz.</pre></details><div class="note" id="multiExportNote" hidden>Mehrere Quelldateien werden zu einer gemeinsamen G-Code-Datei zusammengefügt. 3MF-Export ist für eine einzelne Quelldatei verfügbar; Modell- und Filament-Metadaten unterschiedlicher 3MF-Pakete werden nicht vermischt.</div><div class="export"><button id="export3mf" class="primary" disabled>G-Code-3MF exportieren</button><button id="exportGcode" disabled>G-Code exportieren</button></div><p class="foot">3MF erhält Original-Metadaten und Vorschaubilder; die G-Code-MD5 wird neu berechnet. Slicer-Zeit und Materialangaben im Paket bleiben Werte eines Einzeldrucks. Keine Übertragung zum Drucker.</p></div>
+</svg><div id="sequenceStage" class="sequence-stage" role="status">Keine Bewegungsvorschau</div><p id="sequencePosition" class="note">X — · Y — · Z —</p><label class="field">Fortschritt der Bewegungen<input id="sequenceSeek" type="range" min="0" max="1000" value="0" disabled></label><div class="toolbar sequence-controls"><button id="sequencePlay" type="button" disabled>Abspielen</button><button id="sequenceReset" type="button" disabled>Zurücksetzen</button><label class="field">Tempo<select id="sequenceSpeed" disabled><option value="1">1×</option><option value="4" selected>4×</option><option value="10">10×</option></select></label></div><p class="foot">Schematische Bewegungsvorschau aus den erzeugten Fahrbefehlen. Grün: gefahren · Orange: aktuelle Fahrt · Blau: Z-Position. Keine Kollisionssimulation. Kühlpausen werden nicht animiert.</p></div><div class="note" id="estimate">Lade eine Datei für Bauteilhöhe und Verbrauch.</div><div class="note" id="warnings"></div><details><summary>Ausräum-G-Code ansehen</summary><pre id="preview">Nach dem Laden erscheint hier die erzeugte Sequenz.</pre></details><div class="note" id="multiExportNote" hidden>Mehrere Quelldateien werden zu einer gemeinsamen G-Code-Datei zusammengefügt. 3MF-Export ist für eine einzelne Quelldatei verfügbar; Modell- und Filament-Metadaten unterschiedlicher 3MF-Pakete werden nicht vermischt.</div><div class="note" id="outputSizeInfo">Ausgabelimit: 1.024 MB.</div><details><summary>Ausgabegröße & Arbeitsspeicher</summary><div class="grid" id="exportFields"></div><div class="note">Ab 250 MB erscheint eine Warnung. Das einstellbare Limit verhindert sehr große Exporte, die den Browser wegen zusätzlicher Text-, Binär- und ZIP-Kopien überlasten können.</div></details><div class="export"><button id="export3mf" class="primary" disabled>G-Code-3MF exportieren</button><button id="exportGcode" disabled>G-Code exportieren</button></div><p class="foot">3MF erhält Original-Metadaten und Vorschaubilder; die G-Code-MD5 wird neu berechnet. Slicer-Zeit und Materialangaben im Paket bleiben Werte eines Einzeldrucks. Keine Übertragung zum Drucker.</p></div>
 <div class="card"><h3>So entsteht deine Druckserie</h3><p class="note">Jeder Durchlauf druckt die nächste Datei der Warteschlange an ihren ursprünglichen Positionen. Anschließend kühlt die Platte ab, wird gebogen und freigeräumt.</p><ul class="note"><li>Die Ausräumhöhe wird aus der Bauteilhöhe vorgeschlagen und bleibt anpassbar.</li><li>Die Biege-Endposition ergibt sich aus Basis plus Biegetiefe.</li><li>Mittelfahrten und seitlich versetzte Schiebefahrten lassen sich kombinieren.</li><li>Die Kühlmethode bestimmt, wann das Ausräumen beginnen darf.</li></ul><p class="note">Der Drucker und die montierte Ausräummechanik müssen zu den eingestellten Bewegungen passen. Die Z-Geschwindigkeit wird auf das Druckerprofil begrenzt.</p></div></aside></div></main>
 <footer>© 2026 gfall94 · Nur unveränderte private, nichtkommerzielle Nutzung · <a href="LICENSE">Lizenzbedingungen</a></footer>
 <script>'use strict';
@@ -32,13 +32,13 @@ const Looper = (() => {
     xPositions:'220,190,160,130,100,70,30', rearY:250, frontY:0,
     cooldownMode:'combined', cooldownSeconds:60, cooldownTemp:35, cooldownRepeats:60, postTempSeconds:0,
     fan:100, pause:2, clearLast:true, purge:true, purgeLength:50, purgeSpeed:200,
-    parkZ:20.2};
+    parkZ:20.2, maxOutputMB:1024};
   const numberSpec = {
     loops:[1,100,true],bendBase:[0,250],bendDepth:[0.1,100],bends:[1,30,true],bendSpeed:[0.1,20],
     sweepZ:[0.2,250],sweepSpeed:[1,200],fastSpeed:[1,200],centerPasses:[0,10,true],
     rearY:[0,256],frontY:[0,256],cooldownSeconds:[0,7200,true],cooldownTemp:[15,80],
     cooldownRepeats:[1,120,true],postTempSeconds:[0,7200,true],fan:[0,100,true],pause:[0,3600,true],purgeLength:[1,100],
-    purgeSpeed:[30,600],parkZ:[0.2,250]
+    purgeSpeed:[30,600],parkZ:[0.2,250],maxOutputMB:[250,4096,true]
   };
   const END = ';===== date: 20230428 =====================';
   const PARK = /M400 ; wait all motion done\nM17 S\nM17 Z0\.4[^\n]*\n/;
@@ -112,7 +112,8 @@ const Looper = (() => {
     if(s.sweepZ>info.maxZ||s.parkZ>info.maxZ) errors.push('Ausräum-/Parkhöhe liegt außerhalb des Bauraums.');
     if(s.rearY<=s.frontY) errors.push('Hintere Y-Position muss größer als die vordere sein.');
     if(!s.centerPasses&&!s.rake&&!s.fastRake) errors.push('Mindestens ein Ausräummuster wählen.');
-    if(s.loops*info.bytes>250*1024*1024) errors.push('Ausgabe zu groß (maximal 250 MB). Bitte weniger Loops wählen.');
+    const outputBytes=s.loops*info.bytes;
+    if(outputBytes>s.maxOutputMB*1024*1024) errors.push(`Geschätzte Ausgabe ${Math.ceil(outputBytes/1024/1024)} MB überschreitet das eingestellte Limit von ${s.maxOutputMB} MB. Limit erhöhen oder weniger Drucke wählen.`);
     if(errors.length) throw Error(errors.join('\n'));
     return s;
   }
@@ -191,7 +192,7 @@ const Looper = (() => {
     return start+body+end;
   }
   function generate(info,input) {
-    const s=validate(info,input), parts=[`; CG_LOOPER v1.4 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
+    const s=validate(info,input), parts=[`; CG_LOOPER v1.5 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
     const cleared=prepare(info,s,true), untouched=prepare(info,s,false);
     for(let i=1;i<=s.loops;i++) {
       parts.push(`\n; === LOOP ${i} OF ${s.loops} ===\n`,(i<s.loops||s.clearLast)?cleared:untouched,`\n; === END OF LOOP ${i} ===\n`);
@@ -203,8 +204,10 @@ const Looper = (() => {
     else if(s.cooldownMode==='temperature') warnings.push(`Der P1S erhält einen Wartebefehl für ${n(s.cooldownTemp)} °C. Die Freigabe erfolgt durch seine Firmware; Toleranzen und mögliche Zeitlimits bleiben wirksam. Eine strikt eingehaltene Temperaturgrenze ist mit diesem G-Code nicht garantiert.`);
     else warnings.push('Zeitgesteuerte Kühlung: Die App prüft keine tatsächliche Betttemperatur. Wartezeit am Gerät passend einstellen.');
     if(s.sweepZ>=info.height) warnings.push('Ausräumhöhe liegt auf/über der Bauteilhöhe – möglicherweise kein Kontakt.');
+    const estimatedOutputBytes=s.loops*info.bytes;
+    if(estimatedOutputBytes>250*1024*1024) warnings.push(`Große Ausgabe: ungefähr ${Math.ceil(estimatedOutputBytes/1024/1024)} MB G-Code. Der Browser kann während des Exports ein Mehrfaches davon im Arbeitsspeicher benötigen.`);
     const preview=clearCode(s),motion=motionPreview(info,s,preview);
-    return {parts,settings:s,warnings,preview,motion,timing:timing(info,s,motion),clearCount:s.loops-(s.clearLast?0:1)};
+    return {parts,settings:s,warnings,preview,motion,timing:timing(info,s,motion),clearCount:s.loops-(s.clearLast?0:1),estimatedOutputBytes};
   }
   function scheduleJobs(jobs,order) {
     if(!['alternating','batch'].includes(order))throw Error('Ungültige Druckreihenfolge.');
@@ -219,12 +222,13 @@ const Looper = (() => {
   function generateQueue(jobs,input,order='alternating') {
     const plan=scheduleJobs(jobs,order),total=plan.length;
     if(jobs.length>1&&(jobs.some(j=>!j.info.nozzleDiameter)||new Set(jobs.map(j=>j.info.nozzleDiameter)).size!==1))throw Error('Alle Dateien müssen dieselbe angegebene Düsendurchmesser-Konfiguration verwenden.');
-    if(jobs.reduce((v,j)=>v+j.info.bytes*j.count,0)>250*1024*1024)throw Error('Gesamtausgabe zu groß (maximal 250 MB).');
     const prepared=jobs.map(j=>{
       const s=validate(j.info,{...input,loops:1,sweepZ:j.sweepZ});
       return {s,clear:prepare(j.info,s,true),final:prepare(j.info,s,false),details:generate(j.info,s)};
     });
-    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.4 | ${total} prints | ${jobs.length} files | ${order}\n`];
+    const estimatedOutputBytes=jobs.reduce((v,j)=>v+j.info.bytes*j.count,0),limitMB=prepared[0].s.maxOutputMB;
+    if(estimatedOutputBytes>limitMB*1024*1024)throw Error(`Geschätzte Gesamtausgabe ${Math.ceil(estimatedOutputBytes/1024/1024)} MB überschreitet das eingestellte Limit von ${limitMB} MB. Limit erhöhen oder weniger Drucke wählen.`);
+    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.5 | ${total} prints | ${jobs.length} files | ${order}\n`];
     const counts=jobs.map(()=>0);let printSeconds=0,motionSeconds=0,grams=0;
     plan.forEach((index,step)=>{
       const j=jobs[index],p=prepared[index],clear=step<total-1||settings.clearLast;
@@ -236,9 +240,11 @@ const Looper = (() => {
       grams+=j.info.grams;
     });
     const waits=waitTimes(settings),knownSeconds=printSeconds===null||motionSeconds===null?null:printSeconds+waits.fixedSeconds+motionSeconds;
-    return {parts,settings,plan,grams,clearCount:waits.clearCount,details:prepared.map(p=>p.details),
+    const warnings=[...new Set(prepared.flatMap(p=>p.details.warnings))];
+    if(estimatedOutputBytes>250*1024*1024)warnings.push(`Große Ausgabe: ungefähr ${Math.ceil(estimatedOutputBytes/1024/1024)} MB G-Code bei ${limitMB} MB eingestelltem Limit. Der Browser kann während des Exports ein Mehrfaches davon im Arbeitsspeicher benötigen.`);
+    return {parts,settings,plan,grams,clearCount:waits.clearCount,details:prepared.map(p=>p.details),estimatedOutputBytes,
       timing:{waits,singlePrintSeconds:jobs.length===1?jobs[0].info.printSeconds:null,printSeconds,motionSeconds,knownSeconds},
-      warnings:[...new Set(prepared.flatMap(p=>p.details.warnings))]};
+      warnings};
   }
   return {defaults,numberSpec,analyze,validate,generate,generateQueue,scheduleJobs,clearCode,suggestSweepZ,parseDuration,waitTimes,motionPreview};
 })();
@@ -391,7 +397,8 @@ const fieldGroups={
  patternFields:[['centerPasses','Mittlere Ausräumfahrten','Bei X125; 0 deaktiviert'],['fastSpeed','Schnelle Rechenfahrt / mm/s','Geschwindigkeit des zweiten Durchgangs'],['xPositions','X-Positionen / mm','Kommagetrennt, von rechts nach links'],['rearY','Hintere Kante Y / mm','Start der jeweiligen Schiebebewegung'],['frontY','Vordere Kante Y / mm','Ziel der Schiebebewegung'],['parkZ','Parkhöhe Z / mm','Nach dem Ausräumen']],
  coolFields:[['cooldownSeconds','Feste Kühlpause / s','60 s = 1 Minute, passend einstellen'],['fan','Kühllüfter / %','Bauteil-, Zusatz- und Gehäuselüfter']],
  temperatureFields:[['cooldownTemp','Zieltemperatur der Platte / °C','Oberhalb der Raumtemperatur wählen'],['cooldownRepeats','Temperaturbefehl wiederholen','Anzahl der Aufrufe; keine Zeitangabe'],['postTempSeconds','Zusatzpause nach Temperaturfreigabe / s','Einmal pro Ausräumvorgang; 0 deaktiviert']],
- purgeFields:[['purgeLength','Spülmenge / mm Filament','Länge des geförderten Filaments'],['purgeSpeed','Spülvorschub / mm/min','Filamentvorschub pro Minute (nicht mm/s)']]
+ purgeFields:[['purgeLength','Spülmenge / mm Filament','Länge des geförderten Filaments'],['purgeSpeed','Spülvorschub / mm/min','Filamentvorschub pro Minute (nicht mm/s)']],
+ exportFields:[['maxOutputMB','Maximale Ausgabegröße / MB','250–4096 MB; große Exporte benötigen deutlich mehr Arbeitsspeicher']]
 };
 for(const [group,fields] of Object.entries(fieldGroups))for(const [key,title,hint] of fields){
  const label=document.createElement('label');label.className='field'+(key==='xPositions'?' wide':'');label.textContent=title;
@@ -444,17 +451,18 @@ function refresh(){
  $('bendSummary').textContent=`Biegebereich Z${s.bendBase} → Z${+(s.bendBase+s.bendDepth).toFixed(3)} · ${s.bendDepth} mm Hub`;
  try{showWaits(Looper.validate(loaded?{...loaded,bytes:0}:{maxZ:250,height:0,maxZSpeed:20,bytes:0},{...s,loops:jobs.length?total:s.loops}));}catch{$('waitSummary').textContent='Für die Wartezeitübersicht bitte gültige Einstellungen eingeben.';}
  $('queueOrder').replaceChildren();$('multiExportNote').hidden=jobs.length<2;
- if(!loaded){clearTiming();$('preview').textContent='Nach dem Laden erscheint hier die erzeugte Sequenz.';$('statHeight').textContent='—';$('statGrams').textContent='—';$('estimate').textContent='Lade eine Datei für Bauteilhöhe und Verbrauch.';$('warnings').replaceChildren();return;}
+ if(!loaded){clearTiming();$('preview').textContent='Nach dem Laden erscheint hier die erzeugte Sequenz.';$('statHeight').textContent='—';$('statGrams').textContent='—';$('estimate').textContent='Lade eine Datei für Bauteilhöhe und Verbrauch.';$('outputSizeInfo').textContent=`Ausgabelimit: ${s.maxOutputMB.toLocaleString('de-DE')} MB.`;$('warnings').replaceChildren();return;}
  try{
   result=Looper.generateQueue(jobs,s,$('jobOrder').value);saveLocal(s);$('statHeight').textContent=Math.max(...jobs.map(j=>j.info.height)).toLocaleString('de-DE');$('statGrams').textContent=result.grams.toLocaleString('de-DE',{maximumFractionDigits:1});
   const activeIndex=jobs.indexOf(selected),active=result.details[activeIndex];
   const activeClears=result.plan.filter((i,step)=>i===activeIndex&&(step<result.plan.length-1||s.clearLast)).length;
   showTiming({...result.timing,singlePrintSeconds:loaded.printSeconds});sequenceView.setData(active.motion,activeClears);
+  $('outputSizeInfo').textContent=`Geschätzte G-Code-Ausgabe: ${(result.estimatedOutputBytes/1024/1024).toLocaleString('de-DE',{maximumFractionDigits:1})} MB · Limit: ${s.maxOutputMB.toLocaleString('de-DE')} MB.`;
   for(const index of result.plan){const item=document.createElement('span');item.textContent=String.fromCharCode(65+index);item.title=jobs[index].name;$('queueOrder').append(item);}
   $('estimate').textContent=`Ausgewählt: ${selected.name} · ${loaded.layers} Schichten · Vorschau dieser Datei. Zeit und Material oben beziehen sich auf die gesamte Warteschlange. Slicer-Zeit inklusive Druckstart, Bewegungszeit ohne Beschleunigung; Änderungen an Spülen und ursprünglichem Parken sind nicht exakt eingerechnet.`;
   $('warnings').replaceChildren();const list=document.createElement('ul');for(const w of result.warnings){const li=document.createElement('li');li.textContent=w;list.append(li);}$('warnings').append(list);
   $('preview').textContent=active.preview;$('exportGcode').disabled=busy||importing;$('export3mf').disabled=busy||importing||jobs.length!==1||!archiveEntries;status(`${jobs.length} Datei(en), ${total} Drucke. Parameterprüfung bestanden; Druckserie bereit.`);
- }catch(e){clearTiming();status(e.message,true);$('preview').textContent='Bitte die angegebenen Parameter korrigieren.';$('warnings').replaceChildren();}
+ }catch(e){clearTiming();status(e.message,true);$('outputSizeInfo').textContent=`Ausgabelimit: ${Number.isFinite(s.maxOutputMB)?s.maxOutputMB.toLocaleString('de-DE'):'—'} MB.`;$('preview').textContent='Bitte die angegebenen Parameter korrigieren.';$('warnings').replaceChildren();}
 }
 function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
 function renderJobs(){

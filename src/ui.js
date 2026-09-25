@@ -7,7 +7,8 @@ const fieldGroups={
  patternFields:[['centerPasses','Mittlere Ausräumfahrten','Bei X125; 0 deaktiviert'],['fastSpeed','Schnelle Rechenfahrt / mm/s','Geschwindigkeit des zweiten Durchgangs'],['xPositions','X-Positionen / mm','Kommagetrennt, von rechts nach links'],['rearY','Hintere Kante Y / mm','Start der jeweiligen Schiebebewegung'],['frontY','Vordere Kante Y / mm','Ziel der Schiebebewegung'],['parkZ','Parkhöhe Z / mm','Nach dem Ausräumen']],
  coolFields:[['cooldownSeconds','Feste Kühlpause / s','60 s = 1 Minute, passend einstellen'],['fan','Kühllüfter / %','Bauteil-, Zusatz- und Gehäuselüfter']],
  temperatureFields:[['cooldownTemp','Zieltemperatur der Platte / °C','Oberhalb der Raumtemperatur wählen'],['cooldownRepeats','Temperaturbefehl wiederholen','Anzahl der Aufrufe; keine Zeitangabe'],['postTempSeconds','Zusatzpause nach Temperaturfreigabe / s','Einmal pro Ausräumvorgang; 0 deaktiviert']],
- purgeFields:[['purgeLength','Spülmenge / mm Filament','Länge des geförderten Filaments'],['purgeSpeed','Spülvorschub / mm/min','Filamentvorschub pro Minute (nicht mm/s)']]
+ purgeFields:[['purgeLength','Spülmenge / mm Filament','Länge des geförderten Filaments'],['purgeSpeed','Spülvorschub / mm/min','Filamentvorschub pro Minute (nicht mm/s)']],
+ exportFields:[['maxOutputMB','Maximale Ausgabegröße / MB','250–4096 MB; große Exporte benötigen deutlich mehr Arbeitsspeicher']]
 };
 for(const [group,fields] of Object.entries(fieldGroups))for(const [key,title,hint] of fields){
  const label=document.createElement('label');label.className='field'+(key==='xPositions'?' wide':'');label.textContent=title;
@@ -60,17 +61,18 @@ function refresh(){
  $('bendSummary').textContent=`Biegebereich Z${s.bendBase} → Z${+(s.bendBase+s.bendDepth).toFixed(3)} · ${s.bendDepth} mm Hub`;
  try{showWaits(Looper.validate(loaded?{...loaded,bytes:0}:{maxZ:250,height:0,maxZSpeed:20,bytes:0},{...s,loops:jobs.length?total:s.loops}));}catch{$('waitSummary').textContent='Für die Wartezeitübersicht bitte gültige Einstellungen eingeben.';}
  $('queueOrder').replaceChildren();$('multiExportNote').hidden=jobs.length<2;
- if(!loaded){clearTiming();$('preview').textContent='Nach dem Laden erscheint hier die erzeugte Sequenz.';$('statHeight').textContent='—';$('statGrams').textContent='—';$('estimate').textContent='Lade eine Datei für Bauteilhöhe und Verbrauch.';$('warnings').replaceChildren();return;}
+ if(!loaded){clearTiming();$('preview').textContent='Nach dem Laden erscheint hier die erzeugte Sequenz.';$('statHeight').textContent='—';$('statGrams').textContent='—';$('estimate').textContent='Lade eine Datei für Bauteilhöhe und Verbrauch.';$('outputSizeInfo').textContent=`Ausgabelimit: ${s.maxOutputMB.toLocaleString('de-DE')} MB.`;$('warnings').replaceChildren();return;}
  try{
   result=Looper.generateQueue(jobs,s,$('jobOrder').value);saveLocal(s);$('statHeight').textContent=Math.max(...jobs.map(j=>j.info.height)).toLocaleString('de-DE');$('statGrams').textContent=result.grams.toLocaleString('de-DE',{maximumFractionDigits:1});
   const activeIndex=jobs.indexOf(selected),active=result.details[activeIndex];
   const activeClears=result.plan.filter((i,step)=>i===activeIndex&&(step<result.plan.length-1||s.clearLast)).length;
   showTiming({...result.timing,singlePrintSeconds:loaded.printSeconds});sequenceView.setData(active.motion,activeClears);
+  $('outputSizeInfo').textContent=`Geschätzte G-Code-Ausgabe: ${(result.estimatedOutputBytes/1024/1024).toLocaleString('de-DE',{maximumFractionDigits:1})} MB · Limit: ${s.maxOutputMB.toLocaleString('de-DE')} MB.`;
   for(const index of result.plan){const item=document.createElement('span');item.textContent=String.fromCharCode(65+index);item.title=jobs[index].name;$('queueOrder').append(item);}
   $('estimate').textContent=`Ausgewählt: ${selected.name} · ${loaded.layers} Schichten · Vorschau dieser Datei. Zeit und Material oben beziehen sich auf die gesamte Warteschlange. Slicer-Zeit inklusive Druckstart, Bewegungszeit ohne Beschleunigung; Änderungen an Spülen und ursprünglichem Parken sind nicht exakt eingerechnet.`;
   $('warnings').replaceChildren();const list=document.createElement('ul');for(const w of result.warnings){const li=document.createElement('li');li.textContent=w;list.append(li);}$('warnings').append(list);
   $('preview').textContent=active.preview;$('exportGcode').disabled=busy||importing;$('export3mf').disabled=busy||importing||jobs.length!==1||!archiveEntries;status(`${jobs.length} Datei(en), ${total} Drucke. Parameterprüfung bestanden; Druckserie bereit.`);
- }catch(e){clearTiming();status(e.message,true);$('preview').textContent='Bitte die angegebenen Parameter korrigieren.';$('warnings').replaceChildren();}
+ }catch(e){clearTiming();status(e.message,true);$('outputSizeInfo').textContent=`Ausgabelimit: ${Number.isFinite(s.maxOutputMB)?s.maxOutputMB.toLocaleString('de-DE'):'—'} MB.`;$('preview').textContent='Bitte die angegebenen Parameter korrigieren.';$('warnings').replaceChildren();}
 }
 function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
 function renderJobs(){

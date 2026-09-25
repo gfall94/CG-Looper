@@ -1,6 +1,6 @@
 # CG Looper
 
-Lokale GUI für aufeinanderfolgende Drucke mit Bambu Lab P1S und kompatibler Ausräummechanik. Version 1.4.
+Lokale GUI für aufeinanderfolgende Drucke mit Bambu Lab P1S und kompatibler Ausräummechanik. Version 1.5.
 
 **Web-App:** [gfall94.github.io/CG-Looper](https://gfall94.github.io/CG-Looper/)
 
@@ -64,6 +64,7 @@ Version-2-Profile speichern Reihenfolge, Stückzahlen und individuelle Ausräumh
 | Schachtspülung | 50 mm Filament bei 200 **mm/min**, ersetzt die Start-Spüllinie |
 | Zwischenpause | 2 Sekunden nach Endcode |
 | Letzten Druck ausräumen | Ein; ausschaltbar |
+| Maximale Ausgabegröße | 1.024 MB; einstellbar von 250 bis 4.096 MB |
 
 Die „Biegetiefe“ ist ein Z-Hub, keine Messung der tatsächlichen Plattenverformung. Die Druck-Z-Korrektur und der Plattentyp bleiben wie in der Ausgangsdatei.
 
@@ -114,7 +115,7 @@ Die Vorschau ist eine schematische Darstellung, keine Kollisionssimulation. Die 
 - Die eigentlichen Druckbahnen bleiben unverändert. Start, Homing, Kalibrierung, AMS-Entladen und Endcode werden je Durchlauf wiederholt. Optional wird die Start-Spüllinie durch Schachtspülung ersetzt.
 - Die Offline-App erhält keine tatsächliche Betttemperatur. Die feste Kühlpause ist frei einstellbar und startet standardmäßig bei 60 Sekunden. Bei temperaturbasierten Modi entscheidet die Drucker-Firmware über die Freigabe; deren Verhalten muss am Gerät geprüft werden.
 - Der 3MF-Export übernimmt Metadaten, Vorschaubilder und andere Platten unverändert und aktualisiert G-Code plus MD5 der ausgewählten Platte. Das ZIP wird ohne Kompression geschrieben und ist daher größer. **Slicer-Zeiten, Materialangaben und Fortschrittsmeldungen im Paket beziehen sich weiterhin auf einen Einzeldruck.** Die GUI zeigt den hochgerechneten Materialverbrauch ohne zusätzliche Schachtspülung.
-- Maximal 20 Quelldateien, je höchstens 100 MB Eingabegröße; zusammen maximal 250 MB entpackte Daten. Geschätzte G-Code-Ausgabe maximal 250 MB und insgesamt höchstens 100 Drucke. ZIP64 und verschlüsselte ZIPs sind nicht unterstützt.
+- Maximal 20 Quelldateien, je höchstens 100 MB Eingabegröße; zusammen maximal 250 MB entpackte Eingabedaten. Die geschätzte G-Code-Ausgabe ist standardmäßig auf 1.024 MB begrenzt und unter „Ausgabegröße & Arbeitsspeicher“ zwischen 250 und 4.096 MB einstellbar. Ab 250 MB zeigt die App eine Speicherwarnung. Insgesamt sind höchstens 100 Drucke möglich. ZIP64 und verschlüsselte ZIPs sind nicht unterstützt.
 - Automatische Softwareprüfungen und Browserprüfung bestanden. **Keine mechanische Erprobung oder Freigabe am realen Drucker.** Den ersten Ablauf am eigenen Aufbau beaufsichtigt prüfen.
 
 ## Qualitätssicherung
