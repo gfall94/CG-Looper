@@ -5,7 +5,7 @@ const fieldGroups={
  bendFields:[['bendBase','Biege-Basis Z / mm','Z-Position bei entlasteter Platte'],['bendDepth','Biegetiefe / mm','Zusätzlicher Z-Weg ab der Biege-Basis'],['bends','Biegezyklen','Ein Zyklus = hin und zurück'],['bendSpeed','Z-Geschwindigkeit / mm/s','Maximalwert aus dem Druckerprofil']],
  sweepFields:[['sweepZ','Ausräumhöhe Z / mm','Wird beim Laden vorgeschlagen; frei einstellbar'],['sweepSpeed','Ausräumgeschwindigkeit / mm/s','Geschwindigkeit der ersten Schiebefahrten']],
  patternFields:[['centerPasses','Mittlere Ausräumfahrten','Bei X125; 0 deaktiviert'],['fastSpeed','Schnelle Rechenfahrt / mm/s','Geschwindigkeit des zweiten Durchgangs'],['xPositions','X-Positionen / mm','Kommagetrennt, von rechts nach links'],['rearY','Hintere Kante Y / mm','Start der jeweiligen Schiebebewegung'],['frontY','Vordere Kante Y / mm','Ziel der Schiebebewegung'],['parkZ','Parkhöhe Z / mm','Nach dem Ausräumen']],
- coolFields:[['cooldownSeconds','Feste Kühlpause / s','600 s = 10 Minuten, passend einstellen'],['fan','Kühllüfter / %','Bauteil-, Zusatz- und Gehäuselüfter']],
+ coolFields:[['cooldownSeconds','Feste Kühlpause / s','60 s = 1 Minute, passend einstellen'],['fan','Kühllüfter / %','Bauteil-, Zusatz- und Gehäuselüfter']],
  temperatureFields:[['cooldownTemp','Zieltemperatur der Platte / °C','Oberhalb der Raumtemperatur wählen'],['cooldownRepeats','Temperaturbefehl wiederholen','Anzahl der Aufrufe; keine Zeitangabe'],['postTempSeconds','Zusatzpause nach Temperaturfreigabe / s','Einmal pro Ausräumvorgang; 0 deaktiviert']],
  purgeFields:[['purgeLength','Spülmenge / mm Filament','Länge des geförderten Filaments'],['purgeSpeed','Spülvorschub / mm/min','Filamentvorschub pro Minute (nicht mm/s)']]
 };
@@ -34,7 +34,7 @@ function clearTiming(){for(const id of ['singleTime','printsTime','fixedWaitTime
 function getSettings(){const o={};for(const [key,value]of Object.entries(Looper.defaults)){const el=$(key);o[key]=typeof value==='boolean'?el.checked:typeof value==='number'?(el.value.trim()===''?NaN:Number(el.value)):el.value;}return o;}
 function setSettings(s){for(const [key,value]of Object.entries(Looper.defaults)){const el=$(key);let v=s[key]??value;if(key==='cooldownMode'&&v==='reference')v='combined';if(typeof value==='boolean')el.checked=v;else el.value=v;}}
 function status(message,error=false){$('status').hidden=!message;$('status').className='status'+(error?' error':'');$('status').textContent=message;}
-function saveLocal(s){try{localStorage.setItem('cg-looper-v1',JSON.stringify(s));}catch{}}
+function saveLocal(s){try{localStorage.setItem('cg-looper-v2',JSON.stringify(s));}catch{}}
 function applySweepSuggestion(){if(loaded){$('sweepZ').value=loaded.sweepSuggestion;if(selectedJob())selectedJob().sweepZ=loaded.sweepSuggestion;}}
 function refresh(){
  const s=getSettings();result=null;$('exportGcode').disabled=true;$('export3mf').disabled=true;
@@ -156,6 +156,6 @@ $('presetFile').addEventListener('change',async e=>{
 });
 $('reset').addEventListener('click',()=>{setSettings(Looper.defaults);applySweepSuggestion();saveLocal(getSettings());refresh();});
 $('applySweepSuggestion').addEventListener('click',()=>{applySweepSuggestion();refresh();});
-setSettings(Looper.defaults);try{const stored=JSON.parse(localStorage.getItem('cg-looper-v1'));if(stored){Looper.validate({maxZ:250,height:0,maxZSpeed:20,bytes:0},stored);setSettings(stored);}}catch{}
+setSettings(Looper.defaults);try{const stored=JSON.parse(localStorage.getItem('cg-looper-v2'));if(stored){Looper.validate({maxZ:250,height:0,maxZSpeed:20,bytes:0},stored);setSettings(stored);}}catch{}
 try{const order=localStorage.getItem('cg-looper-order');if(['alternating','batch'].includes(order))$('jobOrder').value=order;}catch{}
 refresh();

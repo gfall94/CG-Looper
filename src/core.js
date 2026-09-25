@@ -1,10 +1,10 @@
 'use strict';
-// CG Looper: deliberately limited to the P1S end/start structure in the supplied files.
+// CG Looper: deliberately limited to the supported P1S end/start structure.
 const Looper = (() => {
-  const defaults = {loops:2, bendBase:200, bendDepth:35, bends:6, bendSpeed:20,
-    sweepZ:18.25, sweepSpeed:50, fastSpeed:200, centerPasses:2, rake:true, fastRake:true,
+  const defaults = {loops:5, bendBase:185, bendDepth:35, bends:6, bendSpeed:20,
+    sweepZ:10, sweepSpeed:50, fastSpeed:200, centerPasses:2, rake:true, fastRake:true,
     xPositions:'220,190,160,130,100,70,30', rearY:250, frontY:0,
-    cooldownMode:'time', cooldownSeconds:600, cooldownTemp:25, cooldownRepeats:60, postTempSeconds:0,
+    cooldownMode:'combined', cooldownSeconds:60, cooldownTemp:35, cooldownRepeats:60, postTempSeconds:0,
     fan:100, pause:2, clearLast:true, purge:true, purgeLength:50, purgeSpeed:200,
     parkZ:20.2};
   const numberSpec = {
@@ -165,7 +165,7 @@ const Looper = (() => {
     return start+body+end;
   }
   function generate(info,input) {
-    const s=validate(info,input), parts=[`; CG_LOOPER v1.2 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
+    const s=validate(info,input), parts=[`; CG_LOOPER v1.4 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
     const cleared=prepare(info,s,true), untouched=prepare(info,s,false);
     for(let i=1;i<=s.loops;i++) {
       parts.push(`\n; === LOOP ${i} OF ${s.loops} ===\n`,(i<s.loops||s.clearLast)?cleared:untouched,`\n; === END OF LOOP ${i} ===\n`);
@@ -198,7 +198,7 @@ const Looper = (() => {
       const s=validate(j.info,{...input,loops:1,sweepZ:j.sweepZ});
       return {s,clear:prepare(j.info,s,true),final:prepare(j.info,s,false),details:generate(j.info,s)};
     });
-    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.3 | ${total} prints | ${jobs.length} files | ${order}\n`];
+    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.4 | ${total} prints | ${jobs.length} files | ${order}\n`];
     const counts=jobs.map(()=>0);let printSeconds=0,motionSeconds=0,grams=0;
     plan.forEach((index,step)=>{
       const j=jobs[index],p=prepared[index],clear=step<total-1||settings.clearLast;

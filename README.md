@@ -1,6 +1,6 @@
 # CG Looper
 
-Lokale GUI für aufeinanderfolgende Drucke mit Bambu Lab P1S und kompatibler Ausräummechanik. Version 1.3.
+Lokale GUI für aufeinanderfolgende Drucke mit Bambu Lab P1S und kompatibler Ausräummechanik. Version 1.4.
 
 **Web-App:** [gfall94.github.io/CG-Looper](https://gfall94.github.io/CG-Looper/)
 
@@ -43,20 +43,21 @@ Version-2-Profile speichern Reihenfolge, Stückzahlen und individuelle Ausräumh
 
 | Einstellung | Bedeutung / Standard |
 |---|---|
-| Stückzahl | Je Datei; erste Datei übernimmt die aktuelle Anzahl, weitere beginnen mit 1 |
+| Stückzahl | 5 für die erste Datei; weitere Dateien beginnen mit 1 |
 | Reihenfolge | Abwechselnd oder paketweise, in der Reihenfolge der Dateiliste |
-| Biege-Basis | Z200 mm, entlastete Position |
-| Biegetiefe | +35 mm; resultierende Endposition Z235 |
+| Biege-Basis | Z185 mm, entlastete Position |
+| Biegetiefe | +35 mm; resultierende Endposition Z220 |
 | Biegezyklen | 6 × Endposition → Basis |
 | Z-Geschwindigkeit | 20 mm/s, begrenzt durch Eingabeprofil |
-| Ausräumhöhe | Automatischer Vorschlag aus der Bauteilhöhe; manuell änderbar |
+| Ausräumhöhe | Ausgangswert 10 mm; beim Laden automatischer Vorschlag aus der Bauteilhöhe; manuell änderbar |
 | Ausräumgeschwindigkeit | 50 mm/s |
 | Mittelfahrten | 2 bei X125 |
 | Rechenfahrten | X220, 190, 160, 130, 100, 70, 30; Y250 → Y0 |
 | Zweite Rechenfahrt | Optional, 200 mm/s |
 | Parkhöhe | Z20,2 nach dem Ausräumen |
-| Zeitgesteuert | Bett aus, feste Kühlpause (Standard 600 s) |
-| Temperatur + zusätzliche Kühlpause | Einstellbare M190-S-Temperaturbefehle, anschließend feste Kühlpause |
+| Standard-Kühlmodus | Temperatur + zusätzliche Kühlpause |
+| Zeitgesteuert | Bett aus, feste Kühlpause |
+| Temperatur + zusätzliche Kühlpause | 60 Temperaturbefehle für 35 °C, anschließend 60 Sekunden feste Kühlpause |
 | Temperaturgesteuert | Ein M190-S-Wartebefehl, anschließend optional eine einmalige Zusatzpause pro Ausräumvorgang |
 | Zusatzpause nach Temperaturfreigabe | 0–7200 Sekunden, Standard 0 (aus); nur im Temperaturmodus |
 | Kühllüfter | 100 %, gemeinsam für Bauteil-, Zusatz- und Gehäuselüfter |
@@ -111,7 +112,7 @@ Die Vorschau ist eine schematische Darstellung, keine Kollisionssimulation. Die 
 - Unterstützt den erkannten **Bambu Lab P1S / OrcaSlicer-Start- und Endcode** der gelieferten Datei mit 256 × 256 × 250 mm. Unbekannte Strukturen, andere Drucker und bereits geloopte Dateien werden abgewiesen. Kein universeller G-Code-Looper.
 - Die festen Park- und Schachtpositionen passen zum P1S-Profil. Sie sind keine automatische Kollisionsprüfung für andere Umbauten.
 - Die eigentlichen Druckbahnen bleiben unverändert. Start, Homing, Kalibrierung, AMS-Entladen und Endcode werden je Durchlauf wiederholt. Optional wird die Start-Spüllinie durch Schachtspülung ersetzt.
-- Die Offline-App erhält keine tatsächliche Betttemperatur. 600 Sekunden sind ein einstellbarer Anfangswert für zeitbasierte Kühlung. Bei temperaturbasierten Modi entscheidet die Drucker-Firmware über die Freigabe; deren Verhalten muss am Gerät geprüft werden.
+- Die Offline-App erhält keine tatsächliche Betttemperatur. Die feste Kühlpause ist frei einstellbar und startet standardmäßig bei 60 Sekunden. Bei temperaturbasierten Modi entscheidet die Drucker-Firmware über die Freigabe; deren Verhalten muss am Gerät geprüft werden.
 - Der 3MF-Export übernimmt Metadaten, Vorschaubilder und andere Platten unverändert und aktualisiert G-Code plus MD5 der ausgewählten Platte. Das ZIP wird ohne Kompression geschrieben und ist daher größer. **Slicer-Zeiten, Materialangaben und Fortschrittsmeldungen im Paket beziehen sich weiterhin auf einen Einzeldruck.** Die GUI zeigt den hochgerechneten Materialverbrauch ohne zusätzliche Schachtspülung.
 - Maximal 20 Quelldateien, je höchstens 100 MB Eingabegröße; zusammen maximal 250 MB entpackte Daten. Geschätzte G-Code-Ausgabe maximal 250 MB und insgesamt höchstens 100 Drucke. ZIP64 und verschlüsselte ZIPs sind nicht unterstützt.
 - Automatische Softwareprüfungen und Browserprüfung bestanden. **Keine mechanische Erprobung oder Freigabe am realen Drucker.** Den ersten Ablauf am eigenen Aufbau beaufsichtigt prüfen.
