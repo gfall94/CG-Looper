@@ -1,0 +1,47 @@
+{
+  "errors": [],
+  "ok": true,
+  "path": "C:\\Users\\CGC\\iCloudDrive\\CG-Collective\\Projekte\\CG-Looper\\Software\\tests\\output\\CG-Looper-2x.gcode",
+  "profile": {
+    "backend": "orcaslicer",
+    "bed_size_mm": [
+      256.0,
+      256.0
+    ],
+    "bed_temp_c": 70.0,
+    "filament_type": "PETG",
+    "machine_name": "Bambu Lab P1S (supplied OrcaSlicer profile)",
+    "motion_bounds_mm": {
+      "x": [
+        0.0,
+        256.0
+      ],
+      "y": [
+        -3.0,
+        265.0
+      ],
+      "z": [
+        -1.5,
+        250.0
+      ]
+    },
+    "native_config": "C:\\Users\\CGC\\iCloudDrive\\CG-Collective\\Projekte\\CG-Looper\\Software\\analysis\\project_settings.config",
+    "native_filaments": [],
+    "native_settings": [
+      "C:\\Users\\CGC\\iCloudDrive\\CG-Collective\\Projekte\\CG-Looper\\Software\\analysis\\project_settings.config"
+    ],
+    "nozzle_temp_c": 255.0,
+    "z_height_mm": 250.0
+  },
+  "stats": {
+    "extrusion_moves": 121486,
+    "lines": 182820,
+    "movement_commands": 150292,
+    "non_comment_lines": 162742,
+    "temperature_commands": 34
+  },
+  "warnings": [
+    "Relative positioning found; XYZ bounds validation is skipped while relative mode is active.",
+    "Unknown or unsupported commands were left unchanged: G17 line 4387, G380 line 685, M1002 line 695, M1004 line 965, M17 line 684, M290 line 682, M412 line 737, M620 line 721, M621 line 733, M622 line 862, M623 line 869, M624 line 972."
+  ]
+}

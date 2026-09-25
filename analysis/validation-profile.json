@@ -1,0 +1,31 @@
+{
+  "backend": "orcaslicer",
+  "native_config": "C:\\Users\\CGC\\iCloudDrive\\CG-Collective\\Projekte\\CG-Looper\\Software\\analysis\\project_settings.config",
+  "machine": {
+    "name": "Bambu Lab P1S (supplied OrcaSlicer profile)",
+    "bed_size_mm": [
+      256,
+      256
+    ],
+    "z_height_mm": 250,
+    "motion_bounds_mm": {
+      "x": [
+        0,
+        256
+      ],
+      "y": [
+        -3,
+        265
+      ],
+      "z": [
+        -1.5,
+        250
+      ]
+    }
+  },
+  "filament": {
+    "type": "PETG",
+    "nozzle_temp_c": 255,
+    "bed_temp_c": 70
+  }
+}

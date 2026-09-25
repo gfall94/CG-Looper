@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob: data:; connect-src 'none'">
+<title>CG Looper · Print. Release. Repeat.</title>
+<style>
+:root{color-scheme:dark;--bg:#101518;--card:#1a2227;--line:#344047;--text:#eaf0ed;--muted:#a7b5ba;--accent:#c5fa72;--orange:#f5b96e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 'Segoe UI',sans-serif}button,input,select{font:inherit}button,a,input,select,summary{outline-offset:4px}a{color:var(--accent)}button{cursor:pointer;border:1px solid var(--line);background:#28333a;color:var(--text);border-radius:8px;padding:10px 15px;font-weight:600}button:hover{border-color:var(--accent)}button:disabled{opacity:.4;cursor:not-allowed}button.primary{background:var(--accent);color:#172111;border-color:var(--accent)}header{border-bottom:1px solid var(--line);padding:22px 4vw;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-size:21px;font-weight:750;letter-spacing:-.7px}.brand b{color:var(--accent)}.badge{font:11px/1.5 Consolas,monospace;text-transform:uppercase;letter-spacing:1.2px;border:1px solid var(--line);padding:6px 10px;border-radius:20px;color:var(--muted)}main{max-width:1480px;margin:0 auto;padding:36px 4vw 60px}.eyebrow{color:var(--accent);text-transform:uppercase;font:12px Consolas,monospace;letter-spacing:2px}h1{font-size:clamp(30px,4vw,48px);line-height:1.12;letter-spacing:-1.8px;margin:13px 0}h2{font-size:18px;margin:0 0 16px}h3{font-size:14px;margin:0 0 8px;color:var(--accent)}p{margin:8px 0 18px}.muted,small{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,1fr);gap:22px;margin-top:28px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:23px;margin-bottom:18px}.drop{display:block;text-align:center;border:1px dashed #667c67;border-radius:10px;padding:25px 16px;background:#1e2925;cursor:pointer}.drop.drag{background:#33462c}.drop strong{display:block;font-size:17px;margin-bottom:5px}.drop input{display:block;margin:14px auto 0;max-width:100%;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:block;font-size:13px;color:var(--muted)}.field input,.field select{width:100%;margin-top:6px;padding:10px 11px;border:1px solid #48565d;border-radius:7px;color:var(--text);background:#121a1e}.field small{display:block;font-size:11px;margin-top:5px;line-height:1.4}.field.wide{grid-column:1/-1}.check{display:flex;align-items:flex-start;gap:9px;font-size:13px;margin:13px 0}.check input{accent-color:var(--accent);width:17px;height:17px;margin-top:2px;flex-shrink:0}details{border-top:1px solid var(--line);margin-top:20px;padding-top:15px}summary{cursor:pointer;font-weight:600;margin-bottom:15px}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{font-size:12px;padding:8px 12px}.status{border-radius:8px;padding:12px 14px;background:#25322b;border:1px solid #496442;white-space:pre-line;margin-top:16px;font-size:13px;overflow-wrap:anywhere}.status.error{border-color:#b66760;background:#392829;color:#ffcfcb}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0}.stat{background:#11191d;padding:14px 10px;border-radius:8px}.stat strong{display:block;font-size:24px;letter-spacing:-1px}.stat span{font-size:11px;color:var(--muted)}.steps{display:flex;gap:6px;align-items:center;margin:16px 0;flex-wrap:wrap}.steps span{border:1px solid var(--line);border-radius:5px;padding:7px 9px;font-size:12px}.steps i{color:var(--accent);font-style:normal}.diagram{width:100%;height:220px;display:block;background:#131b20;border-radius:9px}.note{font-size:12px;color:var(--muted);margin-top:12px}.warning{color:var(--orange)}pre{font:12px/1.6 Consolas,monospace;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow:auto;background:#10181d;padding:15px;border-radius:8px}ul{padding-left:18px;margin:10px 0}li{margin:6px 0}.export{display:grid;gap:9px}.export button{padding:14px}.right{align-self:start;position:sticky;top:16px}.foot{margin:12px 0;font-size:11px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:20px 4vw 28px;text-align:center;font-size:12px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:940px){.layout{grid-template-columns:1fr}.right{position:static}main{padding-top:24px}}@media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:17px}.badge{display:none}.stat strong{font-size:20px}}
+.time-summary{border-bottom:1px solid var(--line);margin:20px 0;padding-bottom:14px}.time-summary dl{margin:0}.time-summary dl>div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:13px}.time-summary dt{color:var(--muted)}.time-summary dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}.time-summary .total{border-top:1px solid var(--line);margin-top:7px;padding-top:12px;font-weight:700}.time-summary .total dd{color:var(--accent)}.sequence{margin:20px 0}.sequence svg{width:100%;display:block;background:#131b20;border-radius:9px}.sequence-stage{font-weight:600;margin-top:10px;color:var(--accent)}.sequence input[type=range]{padding:0;accent-color:var(--accent)}.sequence-controls{align-items:end;margin-top:10px}.sequence-controls .field{display:flex;align-items:center;gap:6px}.sequence-controls select{margin:0;width:auto;padding:7px}.right{position:static}.job-card{display:grid;grid-template-columns:104px minmax(0,1fr);gap:13px;border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:14px}.job-card.selected{border-color:var(--accent);background:#202c25}.job-card figure{margin:0}.job-thumb{display:block;width:100%;height:86px;object-fit:contain;background:#111a1e;border-radius:6px}.job-card figcaption{font-size:11px;color:var(--muted);margin-top:5px}.job-select{font-size:13px;text-align:left;overflow-wrap:anywhere;width:100%;padding:6px 8px}.job-card .toolbar{align-items:end;margin-top:8px}.job-count{max-width:82px}.queue-order{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}.queue-order span{background:#2c3a30;border-radius:4px;padding:3px 9px;color:var(--accent);font:12px Consolas,monospace}@media(max-width:480px){.job-card{grid-template-columns:76px minmax(0,1fr);gap:8px;padding:9px}.job-card .toolbar{gap:5px}.job-card .toolbar button{padding:7px}}</style></head><body>
+<header><div class="brand">CG <b>Looper</b> <span class="muted">/</span> Studio</div><span class="badge">Lokal im Browser · P1S · v1.3</span></header>
+<main><div class="eyebrow">Print. Release. Repeat.</div><h1>Ein Druck. Viele Durchläufe.</h1><p class="muted">G-Code laden, Biegen und Ausräumen einstellen, Druckserie exportieren. Alles bleibt auf deinem Rechner.</p>
+<div class="layout"><section>
+<div class="card"><h2>01 &nbsp; Druckdateien</h2><label class="drop" id="drop"><strong>G-Code-Dateien gemeinsam auswählen oder ablegen</strong><span class="muted">Mehrfachauswahl · G-Code und G-Code-3MF · Bambu Lab P1S</span><input id="file" type="file" multiple accept=".gcode,.3mf" aria-label="Druckdateien hinzufügen"></label><div id="jobList"></div><div class="toolbar" style="margin-top:12px"><button id="clearJobs" disabled>Liste leeren</button></div><label class="field" id="plateField" hidden>G-Code-Platte<select id="plate"></select></label><div id="fileInfo" class="note">Auch .gcode.3mf wird direkt geöffnet. Kein Entpacken notwendig.</div><div id="status" role="status" aria-live="polite" hidden></div></div>
+<form id="settings"><div class="card"><h2>02 &nbsp; Druckserie</h2><label class="field">Druckreihenfolge<select id="jobOrder"><option value="alternating">Abwechselnd · A, B, A, B …</option><option value="batch">Als Paket · A, A, B, B …</option></select></label><div class="grid" id="seriesFields" style="margin-top:16px"></div><label class="check"><input type="checkbox" id="clearLast">Auch nach dem letzten Druck ausräumen</label><div class="note">Jede Datei hat eine eigene Stückzahl. Abwechselnd wird pro Runde je eine Kopie jeder noch offenen Datei gedruckt. Paketweise werden erst alle Kopien von A, dann von B gedruckt. Die Listenreihenfolge bestimmt A, B, C …</div></div>
+<div class="card"><h2>03 &nbsp; Plate Bending</h2><div class="grid" id="bendFields"></div><div class="status" id="bendSummary">Biegebereich Z200 → Z235 · 35 mm Hub</div><div class="note">Absolute Drucker-Z-Koordinaten. Die Tiefe ist der zusätzliche Z-Weg ab der Biege-Basis; sie beschreibt nicht die gemessene Plattenverformung.</div></div>
+<div class="card"><h2>04 &nbsp; Ausräumen</h2><div class="grid" id="sweepFields"></div><div class="status" id="sweepSuggestion"></div><div class="toolbar" style="margin-top:10px"><button type="button" id="applySweepSuggestion" disabled>Vorschlag übernehmen</button></div><div class="note">Berechnung: 10 mm unter der Bauteiloberkante, bei Bauteilen unter 20 mm auf halber Höhe; mindestens 0,2 mm. Der Wert ist ein Startpunkt und berücksichtigt keine Bauteilform oder Kollisionen.</div><details><summary>Ausräummuster & Parken</summary><div class="grid" id="patternFields"></div><label class="check"><input id="rake" type="checkbox">Rechenfahrt: hintere → vordere Kante je X-Position</label><label class="check"><input id="fastRake" type="checkbox">Zweite, schnelle Rechenfahrt</label></details></div>
+<div class="card"><h2>05 &nbsp; Abkühlen & Druckstart</h2><div class="grid"><label class="field wide">Kühlmodus<select id="cooldownMode"><option value="time">Zeitgesteuert · feste Kühlpause</option><option value="combined">Temperatur + zusätzliche Kühlpause</option><option value="temperature">Temperaturgesteuert · Drucker wartet</option></select></label></div><div class="grid" id="coolFields" style="margin-top:16px"></div><div class="grid" id="temperatureFields" style="margin-top:16px" hidden></div><div class="note" id="cooldownHint"></div><div class="status" id="waitSummary" aria-live="polite"></div><details><summary>Spülen im Abwurfschacht</summary><label class="check"><input id="purge" type="checkbox">Spülen im Abwurfschacht statt einer Spüllinie auf der Platte</label><div class="grid" id="purgeFields"></div><div class="note">Die Druck-Z-Korrektur und der Plattentyp der Ausgangsdatei bleiben unverändert.</div></details></div></form>
+<div class="card"><h2>Einstellungen mitnehmen</h2><div class="toolbar"><button id="savePreset">Profil speichern</button><button id="loadPreset">Profil laden</button><button id="reset">Standardwerte</button></div><input hidden id="presetFile" type="file" accept=".json"><div class="note">Werte werden zusätzlich lokal im Browser gespeichert, soweit verfügbar.</div></div>
+</section><aside class="right"><div class="card"><h2>Deine Druckserie</h2><div id="queueOrder" class="queue-order" aria-label="Geplante Druckreihenfolge"></div><div class="stats"><div class="stat"><strong id="statLoops">2×</strong><span>Druckdurchläufe</span></div><div class="stat"><strong id="statHeight">—</strong><span>Max. Bauteilhöhe / mm</span></div><div class="stat"><strong id="statGrams">—</strong><span>Filament / g ca.</span></div></div><div class="steps"><span>Drucken</span><i>→</i><span>Abkühlen</span><i>→</i><span>Biegen</span><i>→</i><span>Ausräumen</span></div><div class="time-summary" aria-live="polite"><h3>Zeitübersicht</h3><dl><div><dt>Ausgewählte Datei · Slicer</dt><dd id="singleTime">—</dd></div><div><dt>Alle Druckdurchläufe</dt><dd id="printsTime">—</dd></div><div><dt>Zusätzliche feste Wartezeiten</dt><dd id="fixedWaitTime">—</dd></div><div><dt>Biegen, Ausräumen & Parken</dt><dd id="motionTime">—</dd></div><div class="total"><dt>Seriendauer · Schätzung</dt><dd id="totalTime">—</dd></div></dl><p class="note" id="totalTimeNote">Für die Zeitübersicht eine Datei laden.</p></div>
+<div class="sequence"><h3>Ausräumsequenz</h3><p class="note" id="sequenceHint">Datei laden, um die Bewegungsvorschau zu sehen.</p>
+<svg id="sequenceSvg" viewBox="0 0 400 310" role="img" aria-label="Animation der Ausräumsequenz: links Draufsicht mit X und Y, rechts Z-Position in Millimetern">
+<rect x="35" y="52.52" width="225.28" height="212.48" fill="#17252b" stroke="#577079"/><path d="M35 158.76H260.28M147.64 52.52V265" stroke="#34464e"/>
+<text x="35" y="23" fill="#a7b5ba" font-size="14">Draufsicht · XY</text><text x="305" y="23" fill="#a7b5ba" font-size="14">Z / mm</text><text x="12" y="59" fill="#a7b5ba" font-size="13">Y</text><text x="33" y="286" fill="#a7b5ba" font-size="13">0</text><text x="193" y="286" fill="#a7b5ba" font-size="13">X → 256</text><text x="269" y="46" fill="#a7b5ba" font-size="13">hinten</text><text x="104" y="304" fill="#a7b5ba" font-size="13">vorne</text>
+<path d="M345 57.5V265M337 57.5H353M337 161.25H353M337 265H353" stroke="#577079"/><text x="357" y="62" fill="#a7b5ba" font-size="13">250</text><text x="357" y="166" fill="#a7b5ba" font-size="13">125</text><text x="357" y="269" fill="#a7b5ba" font-size="13">0</text>
+<path id="sequencePlan" fill="none" stroke="#52666f" stroke-width="1.5"/><path id="sequencePassed" fill="none" stroke="#c5fa72" stroke-width="2"/><path id="sequenceActive" fill="none" stroke="#f5b96e" stroke-width="3"/><circle id="sequenceHead" r="5" fill="#f5b96e" visibility="hidden"/><circle id="sequenceZ" cx="345" r="6" fill="#72cfeb" visibility="hidden"/>
+</svg><div id="sequenceStage" class="sequence-stage" role="status">Keine Bewegungsvorschau</div><p id="sequencePosition" class="note">X — · Y — · Z —</p><label class="field">Fortschritt der Bewegungen<input id="sequenceSeek" type="range" min="0" max="1000" value="0" disabled></label><div class="toolbar sequence-controls"><button id="sequencePlay" type="button" disabled>Abspielen</button><button id="sequenceReset" type="button" disabled>Zurücksetzen</button><label class="field">Tempo<select id="sequenceSpeed" disabled><option value="1">1×</option><option value="4" selected>4×</option><option value="10">10×</option></select></label></div><p class="foot">Schematische Bewegungsvorschau aus den erzeugten Fahrbefehlen. Grün: gefahren · Orange: aktuelle Fahrt · Blau: Z-Position. Keine Kollisionssimulation. Kühlpausen werden nicht animiert.</p></div><div class="note" id="estimate">Lade eine Datei für Bauteilhöhe und Verbrauch.</div><div class="note" id="warnings"></div><details><summary>Ausräum-G-Code ansehen</summary><pre id="preview">Nach dem Laden erscheint hier die erzeugte Sequenz.</pre></details><div class="note" id="multiExportNote" hidden>Mehrere Quelldateien werden zu einer gemeinsamen G-Code-Datei zusammengefügt. 3MF-Export ist für eine einzelne Quelldatei verfügbar; Modell- und Filament-Metadaten unterschiedlicher 3MF-Pakete werden nicht vermischt.</div><div class="export"><button id="export3mf" class="primary" disabled>G-Code-3MF exportieren</button><button id="exportGcode" disabled>G-Code exportieren</button></div><p class="foot">3MF erhält Original-Metadaten und Vorschaubilder; die G-Code-MD5 wird neu berechnet. Slicer-Zeit und Materialangaben im Paket bleiben Werte eines Einzeldrucks. Keine Übertragung zum Drucker.</p></div>
+<div class="card"><h3>So entsteht deine Druckserie</h3><p class="note">Jeder Durchlauf druckt die nächste Datei der Warteschlange an ihren ursprünglichen Positionen. Anschließend kühlt die Platte ab, wird gebogen und freigeräumt.</p><ul class="note"><li>Die Ausräumhöhe wird aus der Bauteilhöhe vorgeschlagen und bleibt anpassbar.</li><li>Die Biege-Endposition ergibt sich aus Basis plus Biegetiefe.</li><li>Mittelfahrten und seitlich versetzte Schiebefahrten lassen sich kombinieren.</li><li>Die Kühlmethode bestimmt, wann das Ausräumen beginnen darf.</li></ul><p class="note">Der Drucker und die montierte Ausräummechanik müssen zu den eingestellten Bewegungen passen. Die Z-Geschwindigkeit wird auf das Druckerprofil begrenzt.</p></div></aside></div></main>
+<footer>© 2026 gfall94 · Nur unveränderte private, nichtkommerzielle Nutzung · <a href="LICENSE">Lizenzbedingungen</a></footer>
+<script>'use strict';
+// CG Looper: deliberately limited to the P1S end/start structure in the supplied files.
+const Looper = (() => {
+  const defaults = {loops:2, bendBase:200, bendDepth:35, bends:6, bendSpeed:20,
+    sweepZ:18.25, sweepSpeed:50, fastSpeed:200, centerPasses:2, rake:true, fastRake:true,
+    xPositions:'220,190,160,130,100,70,30', rearY:250, frontY:0,
+    cooldownMode:'time', cooldownSeconds:600, cooldownTemp:25, cooldownRepeats:60, postTempSeconds:0,
+    fan:100, pause:2, clearLast:true, purge:true, purgeLength:50, purgeSpeed:200,
+    parkZ:20.2};
+  const numberSpec = {
+    loops:[1,100,true],bendBase:[0,250],bendDepth:[0.1,100],bends:[1,30,true],bendSpeed:[0.1,20],
+    sweepZ:[0.2,250],sweepSpeed:[1,200],fastSpeed:[1,200],centerPasses:[0,10,true],
+    rearY:[0,256],frontY:[0,256],cooldownSeconds:[0,7200,true],cooldownTemp:[15,80],
+    cooldownRepeats:[1,120,true],postTempSeconds:[0,7200,true],fan:[0,100,true],pause:[0,3600,true],purgeLength:[1,100],
+    purgeSpeed:[30,600],parkZ:[0.2,250]
+  };
+  const END = ';===== date: 20230428 =====================';
+  const PARK = /M400 ; wait all motion done\nM17 S\nM17 Z0\.4[^\n]*\n/;
+  const n = x => Number(x.toFixed(4)).toString();
+  function parseDuration(value) {
+    if(typeof value!=='string'||!value.trim())return null;
+    const units={d:86400,h:3600,m:60,s:1};let seconds=0,count=0;
+    const rest=value.replace(/(\d+(?:\.\d+)?)\s*([dhms])/gi,(_,v,u)=>{seconds+=Number(v)*units[u.toLowerCase()];count++;return '';});
+    return count&&!rest.trim()&&Number.isFinite(seconds)?seconds:null;
+  }
+  function waitTimes(s) {
+    const clearCount=s.loops-(s.clearLast?0:1),betweenCount=s.loops-1;
+    const perClear=s.cooldownMode==='temperature'?s.postTempSeconds:s.cooldownSeconds;
+    const coolingSeconds=clearCount*perClear,betweenSeconds=betweenCount*s.pause;
+    return {clearCount,betweenCount,perClear,coolingSeconds,betweenSeconds,fixedSeconds:coolingSeconds+betweenSeconds,
+      temperaturePhases:s.cooldownMode==='time'?0:clearCount};
+  }
+  function suggestSweepZ(height) {
+    if(!Number.isFinite(height)||height<=0) throw Error('Für den Höhenvorschlag wird eine gültige Bauteilhöhe benötigt.');
+    // Start value for contact below the top, not a geometry/collision analysis.
+    return Math.round(Math.max(0.2,height-Math.min(10,height/2))*100)/100;
+  }
+  function analyze(raw) {
+    if (raw.includes('\0')) throw Error('Binäre Datei: Bitte Klartext-G-Code oder G-Code-3MF laden.');
+    const text = raw.replace(/\r\n?/g,'\n').replace(/^\uFEFF/,'');
+    if (/^; (?:=== LOOP |CG_LOOPER)/m.test(text) || /@fl:section|BENDING MOTION/.test(text))
+      throw Error('Diese Datei enthält bereits Loops/Ausräumcode. Bitte die unveränderte Ausgangsdatei laden.');
+    const model = text.match(/^; printer_model = (.+)$/m)?.[1];
+    if (model !== 'Bambu Lab P1S') throw Error('Dieses Profil unterstützt Bambu Lab P1S aus OrcaSlicer. Das erkannte Druckerprofil passt nicht.');
+    const firstLayer = text.indexOf('\n; CHANGE_LAYER\n');
+    const end = text.lastIndexOf('\n'+END);
+    if (firstLayer<0 || end<firstLayer || text.split('\n'+END).length!==2 || !PARK.test(text.slice(end)))
+      throw Error('Start-/Endstruktur nicht eindeutig erkannt. Datei wird nicht verändert.');
+    if ((text.match(/^; EXECUTABLE_BLOCK_START/gm)||[]).length!==1 || (text.match(/^; EXECUTABLE_BLOCK_END/gm)||[]).length!==1)
+      throw Error('Es muss genau ein vollständiger ausführbarer Druckblock vorhanden sein.');
+    const endText=text.slice(end);
+    for (const line of ['M140 S0 ; turn off bed','M104 S0 ; turn off hotend','M106 S0 ; turn off fan','M106 P2 S0 ; turn off remote part cooling fan','M106 P3 S0 ; turn off chamber cooling fan'])
+      if (!endText.includes(line)) throw Error('Nicht unterstützter Endcode: '+line);
+    const height=Number(text.match(/^; max_z_height: ([\d.]+)/m)?.[1]);
+    const maxZ=Number(text.match(/^; printable_height = ([\d.]+)/m)?.[1]);
+    const maxZSpeed=Number(text.match(/^; machine_max_speed_z = ([\d.]+)/m)?.[1]);
+    if (![height,maxZ,maxZSpeed].every(v=>Number.isFinite(v)&&v>0)) throw Error('Höhen-/Geschwindigkeitsgrenzen fehlen.');
+    if (!/^; printable_area = 0x0,256x0,256x256,0x256$/m.test(text)) throw Error('Abweichender Bauraum: Dieses Profil erwartet 256 × 256 mm.');
+    return {text,model,height,maxZ,maxZSpeed,firstLayer,end,sweepSuggestion:suggestSweepZ(height),
+      nozzleDiameter:text.match(/^; nozzle_diameter = (.+)$/m)?.[1]?.trim()||null,
+      layers:Number(text.match(/^; total layer number: (\d+)/m)?.[1]||0),
+      grams:Number(text.match(/^; filament used \[g\] = ([\d.]+)/m)?.[1]||0),
+      time:text.match(/total estimated time: ([^\n]+)/)?.[1]||'unbekannt',
+      printSeconds:parseDuration(text.match(/total estimated time: ([^\n]+)/)?.[1]),
+      bytes:new TextEncoder().encode(text).length};
+  }
+  function validate(info, input) {
+    const s={...defaults,...input}, errors=[];
+    // Keep previously saved v1.0 profiles usable without exposing the old name.
+    if(s.cooldownMode==='reference')s.cooldownMode='combined';
+    for (const [key,[min,max,int]] of Object.entries(numberSpec)) {
+      if(key==='cooldownSeconds'&&s.cooldownMode==='temperature')continue;
+      if(key==='cooldownTemp'&&s.cooldownMode==='time')continue;
+      if(key==='cooldownRepeats'&&s.cooldownMode!=='combined')continue;
+      if(key==='postTempSeconds'&&s.cooldownMode!=='temperature')continue;
+      const v=s[key];
+      if (typeof v!=='number'||!Number.isFinite(v)||v<min||v>max||(int&&!Number.isInteger(v))) errors.push(`${key}: ${min} bis ${max}${int?' (ganzzahlig)':''}.`);
+    }
+    for (const key of ['rake','fastRake','clearLast','purge']) if(typeof s[key]!=='boolean') errors.push(key+': Wahrheitswert erwartet.');
+    if(!['time','combined','temperature'].includes(s.cooldownMode)) errors.push('Ungültiger Kühlmodus.');
+    s.xs=typeof s.xPositions==='string'?s.xPositions.split(',').map(v=>v.trim()===''?NaN:Number(v)):[];
+    if (!s.xs.length||s.xs.length>30||s.xs.some(v=>!Number.isFinite(v)||v<0||v>256)) errors.push('X-Positionen: 1–30 Zahlen von 0 bis 256, durch Komma getrennt.');
+    if(s.bendBase+s.bendDepth>info.maxZ) errors.push(`Biege-Endposition überschreitet Z${info.maxZ}.`);
+    if(s.bendBase<=info.height+0.5) errors.push('Biege-Basis muss über der Bauteilhöhe + 0,5 mm liegen.');
+    if(s.bendSpeed>info.maxZSpeed) errors.push(`Z-Geschwindigkeit überschreitet ${info.maxZSpeed} mm/s aus der Datei.`);
+    if(s.sweepZ>info.maxZ||s.parkZ>info.maxZ) errors.push('Ausräum-/Parkhöhe liegt außerhalb des Bauraums.');
+    if(s.rearY<=s.frontY) errors.push('Hintere Y-Position muss größer als die vordere sein.');
+    if(!s.centerPasses&&!s.rake&&!s.fastRake) errors.push('Mindestens ein Ausräummuster wählen.');
+    if(s.loops*info.bytes>250*1024*1024) errors.push('Ausgabe zu groß (maximal 250 MB). Bitte weniger Loops wählen.');
+    if(errors.length) throw Error(errors.join('\n'));
+    return s;
+  }
+  function clearCode(s) {
+    let a=['; CG_LOOPER CLEAR START','M400','G90','M140 S0 ; bed off'];
+    const speed=Math.round(s.fan*255/100);
+    a.push(`M106 S${speed}`,`M106 P2 S${speed}`,`M106 P3 S${speed}`);
+    if(s.cooldownMode==='combined') for(let i=0;i<s.cooldownRepeats;i++) a.push(`M190 S${n(s.cooldownTemp)} ; temperature request ${i+1}/${s.cooldownRepeats}`);
+    if(s.cooldownMode==='temperature') a.push(
+      '; Temperature wait is handled by the P1S firmware, including its tolerance/timeouts.',
+      `M190 S${n(s.cooldownTemp)} ; wait for bed temperature (P1S)`,
+      'M400 ; synchronize before plate bending');
+    if(s.cooldownMode!=='temperature'&&s.cooldownSeconds) a.push(`G4 S${s.cooldownSeconds} ; fixed cooling time`);
+    if(s.cooldownMode==='temperature'&&s.postTempSeconds) a.push(`G4 S${s.postTempSeconds} ; one additional wait after temperature release`);
+    a.push('M140 S0','; BENDING MOTION');
+    for(let i=0;i<s.bends;i++) a.push(`G1 Z${n(s.bendBase+s.bendDepth)} F${n(s.bendSpeed*60)}`,`G1 Z${n(s.bendBase)} F${n(s.bendSpeed*60)}`);
+    a.push('; PUSH SECTION',`G1 Z${n(s.sweepZ)} F${n(s.bendSpeed*60)}`,'M400');
+    if(s.centerPasses){a.push('; CENTER SWEEPS',`G1 X125 F${n(s.sweepSpeed*60)}`);for(let i=0;i<s.centerPasses;i++)a.push(`G1 Y${n(s.rearY)} F${n(s.sweepSpeed*60)}`,`G1 Y${n(s.frontY)} F${n(s.sweepSpeed*60)}`);}
+    for(const [enabled,speed,label] of [[s.rake,s.sweepSpeed,'SLOW'],[s.fastRake,s.fastSpeed,'FAST']]) if(enabled) {
+      a.push('; RAKE '+label);for(const x of s.xs)a.push(`G1 Y${n(s.rearY)} F${n(speed*60)}`,`G1 X${n(x)} F${n(speed*60)}`,`G1 Y${n(s.frontY)} F${n(speed*60)}`);
+    }
+    a.push('; PARK TOOLHEAD','M400','G1 X65 Y245 F12000','G1 Y265 F3000','M400','M106 S0','M106 P2 S0','M106 P3 S0','; CG_LOOPER CLEAR END');
+    return a.join('\n')+'\n';
+  }
+  function motionPreview(info,s,code) {
+    // Read the known absolute service position from the original end code.
+    const state={x:null,y:null,z:null};let absolute=true,feed=0;
+    function readMove(line){
+      const c=line.split(';')[0].trim();if(c==='G90')absolute=true;if(c==='G91')absolute=false;
+      if(!/^G[01]\s/.test(c))return null;
+      const next={...state};
+      for(const m of c.matchAll(/([XYZF])\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/g)){
+        const key=m[1].toLowerCase(),v=Number(m[2]);
+        if(key==='f')feed=v;else next[key]=absolute?v:(next[key]===null?null:next[key]+v);
+      }
+      Object.assign(state,next);return {...state};
+    }
+    const prefix=info.text.slice(info.end).split(PARK)[0];
+    for(const line of prefix.split('\n'))readMove(line);
+    if(Object.values(state).some(v=>!Number.isFinite(v)))return null;
+    const initial={...state},moves=[];let phase='Biegen',elapsed=0,distance=0;
+    const phases={'BENDING MOTION':'Biegen','PUSH SECTION':'Ausräumhöhe anfahren','CENTER SWEEPS':'Mittelfahrten','RAKE SLOW':'Rechenfahrt','RAKE FAST':'Schnelle Rechenfahrt','PARK TOOLHEAD':'Parken'};
+    const lines=(code+`; PARK TOOLHEAD\nG1 Z${n(s.parkZ)} F600\n`).split('\n');
+    for(const line of lines){
+      const marker=line.replace(/^;\s*/,'').trim();if(phases[marker])phase=phases[marker];
+      const from={...state},to=readMove(line);if(!to)continue;
+      const length=Math.hypot(to.x-from.x,to.y-from.y,to.z-from.z);if(length<1e-8)continue;
+      const seconds=length/(feed/60);
+      moves.push({from,to,phase,seconds,start:elapsed,end:elapsed+seconds,feed,line});elapsed+=seconds;distance+=length;
+    }
+    return {initial,moves,seconds:elapsed,distance};
+  }
+  function timing(info,s,motion) {
+    const waits=waitTimes(s),printSeconds=info.printSeconds===null?null:info.printSeconds*s.loops;
+    const motionSeconds=waits.clearCount===0?0:motion?motion.seconds*waits.clearCount:null;
+    const knownSeconds=printSeconds===null||motionSeconds===null?null:printSeconds+waits.fixedSeconds+motionSeconds;
+    return {waits,singlePrintSeconds:info.printSeconds,printSeconds,motionSeconds,knownSeconds};
+  }
+  function prepare(info,s,clear) {
+    let start=info.text.slice(0,info.firstLayer), body=info.text.slice(info.firstLayer,info.end), end=info.text.slice(info.end);
+    if(s.purge) {
+      const re=/^;===== nozzle load line [^\n]*\n[\s\S]*?(?=^;===== for Textured PEI Plate)/m;
+      const old=start.match(re)?.[0], temp=old?.match(/^M109 S([\d.]+)/m)?.[1];
+      if(!old||!temp) throw Error('Spüllinie nicht erkannt. Option „Spülen im Abwurfschacht“ deaktivieren.');
+      start=start.replace(re,[';===== nozzle load line (CG Looper chute purge) =====',`M109 S${temp}`,'M975 S1','G90','M83','T1000','G1 X60 F21000','G1 Y245','G1 Y265 F3000','G92 E0',`G1 E${n(s.purgeLength)} F${n(s.purgeSpeed)}`,'M400','G1 X100 F21000','M400',''].join('\n')+'\n');
+    }
+    if(clear) {
+      const speed=Math.round(s.fan*255/100);
+      end=end.replace('M106 S0 ; turn off fan',`M106 S${speed} ; cooldown fan`).replace('M106 P2 S0 ; turn off remote part cooling fan',`M106 P2 S${speed} ; cooldown fan`).replace('M106 P3 S0 ; turn off chamber cooling fan',`M106 P3 S${speed} ; cooldown fan`);
+      end=end.replace(PARK,match=>clearCode(s)+match);
+      // Only replace the two known park Z moves following the reduced-current command.
+      const re=/(M17 Z0\.4[^\n]*\n\s*)G1 Z[\d.]+ F600\n\s*G1 Z[\d.]+/;
+      if(!re.test(end)) throw Error('Parkbewegung nicht erkannt.');
+      end=end.replace(re,`$1G1 Z${n(s.parkZ)} F600\n    G1 Z${n(s.parkZ)}`);
+    }
+    return start+body+end;
+  }
+  function generate(info,input) {
+    const s=validate(info,input), parts=[`; CG_LOOPER v1.2 | ${s.loops} prints | printer P1S\n; CG_LOOPER settings ${JSON.stringify(s)}\n`];
+    const cleared=prepare(info,s,true), untouched=prepare(info,s,false);
+    for(let i=1;i<=s.loops;i++) {
+      parts.push(`\n; === LOOP ${i} OF ${s.loops} ===\n`,(i<s.loops||s.clearLast)?cleared:untouched,`\n; === END OF LOOP ${i} ===\n`);
+      if(i<s.loops)parts.push(`M400\nG4 S${s.pause} ; pause between prints\n`);
+    }
+    const warnings=['Profil: P1S mit passender Ausräummechanik. Bewegungen wurden nicht am Drucker erprobt.',
+      'Start, Homing, Kalibrierung und AMS-Ablauf werden je Druck wiederholt. Fortschritt/Zeit im Drucker beziehen sich weiterhin auf den einzelnen Durchlauf.'];
+    if(s.cooldownMode==='combined') warnings.push('Temperaturbefehle plus feste Kühlpause: Die zusätzliche Zeit garantiert nicht, dass die Zieltemperatur erreicht wurde.');
+    else if(s.cooldownMode==='temperature') warnings.push(`Der P1S erhält einen Wartebefehl für ${n(s.cooldownTemp)} °C. Die Freigabe erfolgt durch seine Firmware; Toleranzen und mögliche Zeitlimits bleiben wirksam. Eine strikt eingehaltene Temperaturgrenze ist mit diesem G-Code nicht garantiert.`);
+    else warnings.push('Zeitgesteuerte Kühlung: Die App prüft keine tatsächliche Betttemperatur. Wartezeit am Gerät passend einstellen.');
+    if(s.sweepZ>=info.height) warnings.push('Ausräumhöhe liegt auf/über der Bauteilhöhe – möglicherweise kein Kontakt.');
+    const preview=clearCode(s),motion=motionPreview(info,s,preview);
+    return {parts,settings:s,warnings,preview,motion,timing:timing(info,s,motion),clearCount:s.loops-(s.clearLast?0:1)};
+  }
+  function scheduleJobs(jobs,order) {
+    if(!['alternating','batch'].includes(order))throw Error('Ungültige Druckreihenfolge.');
+    if(!jobs.length)throw Error('Bitte mindestens eine Datei hinzufügen.');
+    if(jobs.some(j=>!Number.isInteger(j.count)||j.count<1||j.count>100))throw Error('Anzahl je Datei: ganze Zahl von 1 bis 100.');
+    const total=jobs.reduce((n,j)=>n+j.count,0);if(total>100)throw Error('Maximal 100 Drucke insgesamt.');
+    const plan=[];
+    if(order==='batch')jobs.forEach((j,index)=>{for(let copy=0;copy<j.count;copy++)plan.push(index);});
+    else for(let copy=0;copy<Math.max(...jobs.map(j=>j.count));copy++)jobs.forEach((j,index)=>{if(copy<j.count)plan.push(index);});
+    return plan;
+  }
+  function generateQueue(jobs,input,order='alternating') {
+    const plan=scheduleJobs(jobs,order),total=plan.length;
+    if(jobs.length>1&&(jobs.some(j=>!j.info.nozzleDiameter)||new Set(jobs.map(j=>j.info.nozzleDiameter)).size!==1))throw Error('Alle Dateien müssen dieselbe angegebene Düsendurchmesser-Konfiguration verwenden.');
+    if(jobs.reduce((v,j)=>v+j.info.bytes*j.count,0)>250*1024*1024)throw Error('Gesamtausgabe zu groß (maximal 250 MB).');
+    const prepared=jobs.map(j=>{
+      const s=validate(j.info,{...input,loops:1,sweepZ:j.sweepZ});
+      return {s,clear:prepare(j.info,s,true),final:prepare(j.info,s,false),details:generate(j.info,s)};
+    });
+    const settings={...prepared[0].s,loops:total},parts=[`; CG_LOOPER v1.3 | ${total} prints | ${jobs.length} files | ${order}\n`];
+    const counts=jobs.map(()=>0);let printSeconds=0,motionSeconds=0,grams=0;
+    plan.forEach((index,step)=>{
+      const j=jobs[index],p=prepared[index],clear=step<total-1||settings.clearLast;
+      const name=String(j.name||`Datei ${index+1}`).replace(/[\r\n]/g,' ');
+      parts.push(`\n; === LOOP ${step+1} OF ${total} ===\n; CG_LOOPER FILE ${index+1}: ${name} | copy ${++counts[index]} of ${j.count}\n`,clear?p.clear:p.final,`\n; === END OF LOOP ${step+1} ===\n`);
+      if(step<total-1)parts.push(`M400\nG4 S${settings.pause} ; pause between prints\n`);
+      printSeconds=printSeconds===null||j.info.printSeconds===null?null:printSeconds+j.info.printSeconds;
+      if(clear)motionSeconds=motionSeconds===null||!p.details.motion?null:motionSeconds+p.details.motion.seconds;
+      grams+=j.info.grams;
+    });
+    const waits=waitTimes(settings),knownSeconds=printSeconds===null||motionSeconds===null?null:printSeconds+waits.fixedSeconds+motionSeconds;
+    return {parts,settings,plan,grams,clearCount:waits.clearCount,details:prepared.map(p=>p.details),
+      timing:{waits,singlePrintSeconds:jobs.length===1?jobs[0].info.printSeconds:null,printSeconds,motionSeconds,knownSeconds},
+      warnings:[...new Set(prepared.flatMap(p=>p.details.warnings))]};
+  }
+  return {defaults,numberSpec,analyze,validate,generate,generateQueue,scheduleJobs,clearCode,suggestSweepZ,parseDuration,waitTimes,motionPreview};
+})();
+if(typeof module!=='undefined')module.exports=Looper;
+</script>
+<script>'use strict';
+// ZIP reader/writer uses browser-native raw DEFLATE. No external scripts or network.
+const Archive = (() => {
+ const enc=new TextEncoder(),dec=new TextDecoder('utf-8',{fatal:true});
+ const table=Uint32Array.from({length:256},(_,i)=>{for(let j=0;j<8;j++)i=(i>>>1)^((i&1)?0xedb88320:0);return i>>>0;});
+ function crc(data){let c=0xffffffff;for(const b of data)c=table[(c^b)&255]^(c>>>8);return(c^0xffffffff)>>>0;}
+ function md5(data){
+  const len=data.length,pad=new Uint8Array(((len+8>>>6)+1)*64);pad.set(data);pad[len]=128;
+  const v=new DataView(pad.buffer);v.setUint32(pad.length-8,(len*8)>>>0,true);v.setUint32(pad.length-4,Math.floor(len/536870912),true);
+  const shifts=[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21],k=Array.from({length:64},(_,i)=>Math.floor(Math.abs(Math.sin(i+1))*4294967296)|0);
+  let state=[0x67452301,0xefcdab89|0,0x98badcfe|0,0x10325476];
+  for(let offset=0;offset<pad.length;offset+=64){let[a,b,c,d]=state;
+   for(let i=0;i<64;i++){let f,g;if(i<16){f=(b&c)|(~b&d);g=i;}else if(i<32){f=(d&b)|(~d&c);g=(5*i+1)%16;}else if(i<48){f=b^c^d;g=(3*i+5)%16;}else{f=c^(b|~d);g=7*i%16;}
+    let q=(a+f+k[i]+v.getInt32(offset+g*4,true))|0,s=shifts[(i>>4)*4+i%4];[a,b,c,d]=[d,(b+((q<<s)|(q>>>(32-s))))|0,b,c];}
+   state=state.map((x,i)=>(x+[a,b,c,d][i])|0);
+  }
+  return state.map(x=>Array.from({length:4},(_,i)=>((x>>>(i*8))&255).toString(16).padStart(2,'0')).join('')).join('').toUpperCase();
+ }
+ async function read(buffer){
+  if(buffer.byteLength>100*1024*1024)throw Error('Eingabedatei zu groß (maximal 100 MB).');
+  const v=new DataView(buffer),b=new Uint8Array(buffer),u16=p=>v.getUint16(p,true),u32=p=>v.getUint32(p,true);
+  let e=-1;for(let p=b.length-22;p>=Math.max(0,b.length-65557);p--)if(u32(p)===0x06054b50&&p+22+u16(p+20)===b.length){e=p;break;}
+  if(e<0)throw Error('Ungültiges ZIP/3MF-Archiv.');
+  if(u16(e+4)||u16(e+6)||u16(e+8)!==u16(e+10)||u16(e+10)===65535)throw Error('Mehrteilige/ZIP64-Archive werden nicht unterstützt.');
+  let at=u32(e+16),total=0,entries=[];const names=new Set();
+  if(at+u32(e+12)>e)throw Error('Beschädigtes ZIP-Verzeichnis.');
+  for(let i=0;i<u16(e+10);i++){
+   if(u32(at)!==0x02014b50)throw Error('Beschädigtes ZIP-Verzeichnis.');
+   const flags=u16(at+8),method=u16(at+10),checksum=u32(at+16),size=u32(at+20),rawSize=u32(at+24),nl=u16(at+28),el=u16(at+30),cl=u16(at+32),off=u32(at+42);
+   const name=dec.decode(b.subarray(at+46,at+46+nl));at+=46+nl+el+cl;
+   if(flags&1||![0,8].includes(method))throw Error('Verschlüsseltes oder nicht unterstütztes ZIP.');
+   if(names.has(name)||name.includes('..')||name.startsWith('/'))throw Error('Ungültiger oder doppelter ZIP-Pfad.');names.add(name);
+   total+=rawSize;if(total>250*1024*1024||entries.length>5000)throw Error('Entpacktes Archiv zu groß.');
+   if(u32(off)!==0x04034b50)throw Error('Beschädigter ZIP-Eintrag.');
+   const start=off+30+u16(off+26)+u16(off+28);if(start+size>b.length)throw Error('Unvollständiger ZIP-Eintrag.');
+   const compressed=b.subarray(start,start+size);let data=compressed;
+   if(method===8){
+    let stream;try{stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('deflate-raw'));}catch{throw Error('Bitte einen aktuellen Edge-, Chrome- oder Firefox-Browser verwenden.');}
+    const reader=stream.getReader(),chunks=[];let count=0;
+    for(;;){const {done,value}=await reader.read();if(done)break;count+=value.length;if(count>rawSize){await reader.cancel();throw Error('ZIP-Größenprüfung fehlgeschlagen.');}chunks.push(value);}
+    data=new Uint8Array(count);let p=0;for(const chunk of chunks){data.set(chunk,p);p+=chunk.length;}
+   }
+   if(data.length!==rawSize||crc(data)!==checksum)throw Error('ZIP-Prüfsumme fehlerhaft: '+name);
+   entries.push({name,data});
+  }
+  return entries;
+ }
+ function write(entries){
+  let offset=0;const local=[],central=[];
+  for(const {name,data} of entries){const nb=enc.encode(name),c=crc(data),h=new Uint8Array(30+nb.length),v=new DataView(h.buffer);
+   v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x800,true);v.setUint32(14,c,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,nb.length,true);h.set(nb,30);
+   const ch=new Uint8Array(46+nb.length),cv=new DataView(ch.buffer);cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x800,true);cv.setUint32(16,c,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,nb.length,true);cv.setUint32(42,offset,true);ch.set(nb,46);
+   local.push(h,data);central.push(ch);offset+=h.length+data.length;
+  }
+  const end=new Uint8Array(22),v=new DataView(end.buffer);v.setUint32(0,0x06054b50,true);v.setUint16(8,entries.length,true);v.setUint16(10,entries.length,true);v.setUint32(12,central.reduce((a,b)=>a+b.length,0),true);v.setUint32(16,offset,true);
+  return new Blob([...local,...central,end],{type:'application/vnd.ms-package.3dmanufacturing-3dmodel+xml'});
+ }
+ function pack(entries,path,text){
+  const data=enc.encode(text),sum=enc.encode(md5(data));let seen=false;
+  const out=entries.map(e=>{if(e.name===path)return{name:path,data};if(e.name===path+'.md5'){seen=true;return{name:e.name,data:sum};}return e;});
+  if(!seen)out.push({name:path+'.md5',data:sum});return write(out);
+ }
+ return {read,write,pack,crc,md5};
+})();
+if(typeof module!=='undefined')module.exports=Archive;
+</script>
+<script>'use strict';
+// Two orthogonal views of the actual generated G1 moves. Playback is local only.
+class SequenceView {
+  constructor(){
+    this.data=null;this.time=0;this.frame=0;this.last=0;this.phase='';
+    const el=id=>document.getElementById(id);this.el=el;
+    el('sequencePlay').addEventListener('click',()=>this.frame?this.pause():this.play());
+    el('sequenceReset').addEventListener('click',()=>{this.pause();this.time=0;this.render();});
+    el('sequenceSeek').addEventListener('input',()=>{this.pause();if(this.data){this.time=this.data.seconds*Number(el('sequenceSeek').value)/1000;this.render();}});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)this.pause();});
+  }
+  xy(p){return {x:35+p.x*0.88,y:265-p.y*0.83};}
+  z(p){return 265-p.z*0.83;}
+  path(moves){return moves.map(m=>{const a=this.xy(m.from),b=this.xy(m.to);return `M${a.x} ${a.y}L${b.x} ${b.y}`;}).join(' ');}
+  setData(data,clearCount){
+    this.pause();this.data=clearCount?data:null;this.time=0;this.phase='';
+    for(const id of ['sequencePlay','sequenceReset','sequenceSeek','sequenceSpeed'])this.el(id).disabled=!this.data;
+    this.el('sequencePlan').setAttribute('d',this.data?this.path(this.data.moves):'');
+    this.el('sequenceHint').textContent=!clearCount?'Kein Ausräumen in dieser Serie eingestellt.':data?`${clearCount} Ausräumvorgänge in der Serie. Vorschau eines Vorgangs nach dem Abkühlen, inklusive Biegen und Parken.`:'Datei laden und gültige Einstellungen wählen, um die Bewegungsvorschau zu sehen.';
+    this.render();
+  }
+  pause(){if(this.frame)cancelAnimationFrame(this.frame);this.frame=0;this.el('sequencePlay').textContent='Abspielen';}
+  play(){
+    if(!this.data)return;if(this.time>=this.data.seconds)this.time=0;
+    this.last=performance.now();this.el('sequencePlay').textContent='Pause';
+    const tick=now=>{
+      this.time=Math.min(this.data.seconds,this.time+(now-this.last)/1000*Number(this.el('sequenceSpeed').value));this.last=now;this.render();
+      if(this.time>=this.data.seconds)this.pause();else this.frame=requestAnimationFrame(tick);
+    };this.frame=requestAnimationFrame(tick);
+  }
+  render(){
+    if(!this.data){
+      this.el('sequencePassed').setAttribute('d','');this.el('sequenceActive').setAttribute('d','');
+      for(const id of ['sequenceHead','sequenceZ'])this.el(id).setAttribute('visibility','hidden');
+      this.el('sequenceSeek').value=0;this.el('sequenceStage').textContent='Keine Bewegungsvorschau';this.el('sequencePosition').textContent='X — · Y — · Z —';return;
+    }
+    const index=this.data.moves.findIndex(m=>this.time<m.end),i=index<0?this.data.moves.length-1:index,m=this.data.moves[i];
+    if(!m)return;
+    const t=Math.max(0,Math.min(1,(this.time-m.start)/m.seconds));
+    const p={x:m.from.x+(m.to.x-m.from.x)*t,y:m.from.y+(m.to.y-m.from.y)*t,z:m.from.z+(m.to.z-m.from.z)*t};
+    const a=this.xy(m.from),b=this.xy(p);
+    this.el('sequencePassed').setAttribute('d',this.path(this.data.moves.slice(0,i)));
+    this.el('sequenceActive').setAttribute('d',`M${a.x} ${a.y}L${b.x} ${b.y}`);
+    this.el('sequenceHead').setAttribute('cx',b.x);this.el('sequenceHead').setAttribute('cy',b.y);
+    this.el('sequenceZ').setAttribute('cy',this.z(p));
+    for(const id of ['sequenceHead','sequenceZ'])this.el(id).setAttribute('visibility','visible');
+    this.el('sequenceSeek').value=Math.round(this.time/this.data.seconds*1000);
+    const phase=this.time>=this.data.seconds?'Abgeschlossen':m.phase;
+    if(phase!==this.phase){this.el('sequenceStage').textContent=phase;this.phase=phase;}
+    this.el('sequencePosition').textContent=`X ${p.x.toFixed(1)} · Y ${p.y.toFixed(1)} · Z ${p.z.toFixed(1)} mm · ${Math.round(this.time)} / ${Math.ceil(this.data.seconds)} s Bewegungszeit (idealisiert)`;
+  }
+}
+</script>
+<script>'use strict';
+function jobThumbnail(info,entries,path){
+  const stem=path?.replace(/\.gcode$/i,''),image=entries?.find(e=>e.name===stem+'.png')||entries?.find(e=>e.name===stem+'_small.png');
+  if(image&&image.data.length<8*1024*1024&&image.data[0]===137&&image.data[1]===80){
+    return {url:URL.createObjectURL(new Blob([image.data],{type:'image/png'})),kind:'3MF-Vorschaubild',blob:true};
+  }
+  // Plain G-code has no guaranteed thumbnail: show a clearly labelled first-layer path.
+  const canvas=document.createElement('canvas');canvas.width=200;canvas.height=150;const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#111a1e';ctx.fillRect(0,0,200,150);
+  const next=info.text.indexOf('\n; CHANGE_LAYER\n',info.firstLayer+1),lines=info.text.slice(info.firstLayer,next<0?info.end:next).split('\n');
+  let x=null,y=null;const segments=[];
+  for(const line of lines){const c=line.split(';')[0];if(!/^G[0123]\s/.test(c))continue;const nx=c.match(/\bX(-?[\d.]+)/),ny=c.match(/\bY(-?[\d.]+)/),e=c.match(/\bE(-?[\d.]+)/);const ax=nx?Number(nx[1]):x,ay=ny?Number(ny[1]):y;
+    if(e&&Number(e[1])>0&&[x,y,ax,ay].every(v=>v!==null&&Number.isFinite(v)))segments.push([x,y,ax,ay]);x=ax;y=ay;
+  }
+  if(segments.length){let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;for(const [a,b,c,d]of segments){minX=Math.min(minX,a,c);maxX=Math.max(maxX,a,c);minY=Math.min(minY,b,d);maxY=Math.max(maxY,b,d);}const scale=Math.min(180/Math.max(maxX-minX,1),130/Math.max(maxY-minY,1));const px=x=>100+(x-(minX+maxX)/2)*scale,py=y=>75-(y-(minY+maxY)/2)*scale;ctx.strokeStyle='#c5fa72';ctx.lineWidth=1;ctx.beginPath();for(const[a,b,c,d]of segments){ctx.moveTo(px(a),py(b));ctx.lineTo(px(c),py(d));}ctx.stroke();}
+  else{ctx.fillStyle='#a7b5ba';ctx.font='14px sans-serif';ctx.fillText('Keine Vorschau',45,80);}
+  return {url:canvas.toDataURL('image/png'),kind:segments.length?'2D-Bahnvorschau · erste Schicht':'Kein Vorschaubild',blob:false};
+}
+</script>
+<script>'use strict';
+const $=id=>document.getElementById(id);
+const fieldGroups={
+ seriesFields:[['loops','Anzahl · ausgewählte Datei','Stückzahl der markierten Datei'],['pause','Pause zwischen Drucken / s','Nach Ausräumen und Endcode']],
+ bendFields:[['bendBase','Biege-Basis Z / mm','Z-Position bei entlasteter Platte'],['bendDepth','Biegetiefe / mm','Zusätzlicher Z-Weg ab der Biege-Basis'],['bends','Biegezyklen','Ein Zyklus = hin und zurück'],['bendSpeed','Z-Geschwindigkeit / mm/s','Maximalwert aus dem Druckerprofil']],
+ sweepFields:[['sweepZ','Ausräumhöhe Z / mm','Wird beim Laden vorgeschlagen; frei einstellbar'],['sweepSpeed','Ausräumgeschwindigkeit / mm/s','Geschwindigkeit der ersten Schiebefahrten']],
+ patternFields:[['centerPasses','Mittlere Ausräumfahrten','Bei X125; 0 deaktiviert'],['fastSpeed','Schnelle Rechenfahrt / mm/s','Geschwindigkeit des zweiten Durchgangs'],['xPositions','X-Positionen / mm','Kommagetrennt, von rechts nach links'],['rearY','Hintere Kante Y / mm','Start der jeweiligen Schiebebewegung'],['frontY','Vordere Kante Y / mm','Ziel der Schiebebewegung'],['parkZ','Parkhöhe Z / mm','Nach dem Ausräumen']],
+ coolFields:[['cooldownSeconds','Feste Kühlpause / s','600 s = 10 Minuten, passend einstellen'],['fan','Kühllüfter / %','Bauteil-, Zusatz- und Gehäuselüfter']],
+ temperatureFields:[['cooldownTemp','Zieltemperatur der Platte / °C','Oberhalb der Raumtemperatur wählen'],['cooldownRepeats','Temperaturbefehl wiederholen','Anzahl der Aufrufe; keine Zeitangabe'],['postTempSeconds','Zusatzpause nach Temperaturfreigabe / s','Einmal pro Ausräumvorgang; 0 deaktiviert']],
+ purgeFields:[['purgeLength','Spülmenge / mm Filament','Länge des geförderten Filaments'],['purgeSpeed','Spülvorschub / mm/min','Filamentvorschub pro Minute (nicht mm/s)']]
+};
+for(const [group,fields] of Object.entries(fieldGroups))for(const [key,title,hint] of fields){
+ const label=document.createElement('label');label.className='field'+(key==='xPositions'?' wide':'');label.textContent=title;
+ const input=document.createElement('input');input.id=key;input.type=key==='xPositions'?'text':'number';
+ if(Looper.numberSpec[key]){const [min,max,int]=Looper.numberSpec[key];input.min=min;input.max=max;input.step=int?'1':'any';}
+ label.append(input);const small=document.createElement('small');small.textContent=hint;label.append(small);$(group).append(label);
+}
+let loaded=null,result=null,archiveEntries=null,archivePath=null,sourceName='',busy=false;
+const jobs=[];let selectedId=null,nextJobId=1,importing=false;
+const selectedJob=()=>jobs.find(j=>j.id===selectedId);
+const sequenceView=new SequenceView();
+function duration(seconds){if(!Number.isFinite(seconds))return 'Unbekannt';const v=Math.round(seconds),h=Math.floor(v/3600),m=Math.floor(v%3600/60),s=v%60;return [h?`${h} h`:'',m?`${m} min`:'',s||(!h&&!m)?`${s} s`:''].filter(Boolean).join(' ');}
+function showWaits(s){
+ const w=Looper.waitTimes(s),label=s.cooldownMode==='temperature'?'Zusatzpause nach Temperaturfreigabe':'Feste Kühlpause';
+ $('waitSummary').textContent=`${label}: ${w.clearCount} × ${duration(w.perClear)} = ${duration(w.coolingSeconds)}.\nZwischen den Drucken: ${w.betweenCount} × ${duration(s.pause)} = ${duration(w.betweenSeconds)}.\nPlanbare Wartezeit insgesamt: ${duration(w.fixedSeconds)}${w.temperaturePhases?` + ${w.temperaturePhases} temperaturabhängige Wartephasen (Dauer offen).`:'.'}\nGezählt werden nur die hier eingestellten Pausen; Wartezeiten im Original-Druckstart sind nicht separat aufgeschlüsselt.`;
+}
+function showTiming(t){
+ $('singleTime').textContent=duration(t.singlePrintSeconds);$('printsTime').textContent=duration(t.printSeconds);
+ $('fixedWaitTime').textContent=duration(t.waits.fixedSeconds);$('motionTime').textContent=Number.isFinite(t.motionSeconds)?'ca. '+duration(t.motionSeconds):'Unbekannt';
+ $('totalTime').textContent=Number.isFinite(t.knownSeconds)?'ca. '+duration(t.knownSeconds):'Nicht vollständig berechenbar';
+ $('totalTimeNote').textContent=t.waits.temperaturePhases?`Zuzüglich ${t.waits.temperaturePhases} temperaturabhängiger Wartephasen – deren Dauer ist offen.`:'Orientierungswert für die gesamte Druckserie.';
+}
+function clearTiming(){for(const id of ['singleTime','printsTime','fixedWaitTime','motionTime','totalTime'])$(id).textContent='—';$('totalTimeNote').textContent='Für die Zeitübersicht eine Datei laden.';sequenceView.setData(null,1);}
+function getSettings(){const o={};for(const [key,value]of Object.entries(Looper.defaults)){const el=$(key);o[key]=typeof value==='boolean'?el.checked:typeof value==='number'?(el.value.trim()===''?NaN:Number(el.value)):el.value;}return o;}
+function setSettings(s){for(const [key,value]of Object.entries(Looper.defaults)){const el=$(key);let v=s[key]??value;if(key==='cooldownMode'&&v==='reference')v='combined';if(typeof value==='boolean')el.checked=v;else el.value=v;}}
+function status(message,error=false){$('status').hidden=!message;$('status').className='status'+(error?' error':'');$('status').textContent=message;}
+function saveLocal(s){try{localStorage.setItem('cg-looper-v1',JSON.stringify(s));}catch{}}
+function applySweepSuggestion(){if(loaded){$('sweepZ').value=loaded.sweepSuggestion;if(selectedJob())selectedJob().sweepZ=loaded.sweepSuggestion;}}
+function refresh(){
+ const s=getSettings();result=null;$('exportGcode').disabled=true;$('export3mf').disabled=true;
+ const selected=selectedJob();if(selected){selected.count=s.loops;selected.sweepZ=s.sweepZ;}
+ const total=jobs.reduce((n,j)=>n+j.count,0);
+ for(const card of $('jobList').children){const j=jobs.find(j=>j.id===Number(card.dataset.id));const input=card.querySelector('.job-count');if(j&&document.activeElement!==input)input.value=j.count;}
+ $('temperatureFields').hidden=s.cooldownMode==='time';
+ $('cooldownRepeats').closest('label').hidden=s.cooldownMode!=='combined';
+ $('cooldownSeconds').closest('label').hidden=s.cooldownMode==='temperature';
+ $('cooldownSeconds').disabled=s.cooldownMode==='temperature';
+ $('cooldownRepeats').disabled=s.cooldownMode!=='combined';
+ $('cooldownTemp').disabled=s.cooldownMode==='time';
+ $('postTempSeconds').closest('label').hidden=s.cooldownMode!=='temperature';
+ $('postTempSeconds').disabled=s.cooldownMode!=='temperature';
+ $('statLoops').textContent=(jobs.length?total:0)+'×';
+ $('applySweepSuggestion').disabled=!loaded;
+ $('sweepSuggestion').textContent=loaded?`Vorschlag: ${loaded.sweepSuggestion.toLocaleString('de-DE')} mm aus ${loaded.height.toLocaleString('de-DE')} mm Bauteilhöhe. ${s.sweepZ===loaded.sweepSuggestion?'Vorschlag aktiv.':'Eigener Wert aktiv.'}`:'Nach dem Laden wird ein Vorschlag aus der Bauteilhöhe eingetragen.';
+ $('cooldownHint').textContent={
+  time:'Das Bett wird ausgeschaltet. Nach Ablauf der eingestellten Zeit beginnt das Ausräumen – unabhängig von der Temperatur.',
+  combined:'Der Drucker erhält die Zieltemperatur mehrfach und wartet anschließend die feste Kühlpause ab. Das tatsächliche Warteverhalten hängt von seiner Firmware ab; Wiederholungen garantieren keine erreichte Temperatur.',
+  temperature:'Der Drucker wartet mit seinem Temperaturbefehl auf den Sollwert. Danach folgt die eingestellte Zusatzpause einmal pro Ausräumvorgang. Wichtig beim P1S: Firmware-Toleranzen und mögliche Zeitlimits können die Temperatur-Wartephase beenden; eine strikt eingehaltene Temperaturgrenze ist ohne Rückmeldung vom Drucker nicht garantiert.'
+ }[s.cooldownMode]||'';
+ $('bendSummary').textContent=`Biegebereich Z${s.bendBase} → Z${+(s.bendBase+s.bendDepth).toFixed(3)} · ${s.bendDepth} mm Hub`;
+ try{showWaits(Looper.validate(loaded?{...loaded,bytes:0}:{maxZ:250,height:0,maxZSpeed:20,bytes:0},{...s,loops:jobs.length?total:s.loops}));}catch{$('waitSummary').textContent='Für die Wartezeitübersicht bitte gültige Einstellungen eingeben.';}
+ $('queueOrder').replaceChildren();$('multiExportNote').hidden=jobs.length<2;
+ if(!loaded){clearTiming();$('preview').textContent='Nach dem Laden erscheint hier die erzeugte Sequenz.';$('statHeight').textContent='—';$('statGrams').textContent='—';$('estimate').textContent='Lade eine Datei für Bauteilhöhe und Verbrauch.';$('warnings').replaceChildren();return;}
+ try{
+  result=Looper.generateQueue(jobs,s,$('jobOrder').value);saveLocal(s);$('statHeight').textContent=Math.max(...jobs.map(j=>j.info.height)).toLocaleString('de-DE');$('statGrams').textContent=result.grams.toLocaleString('de-DE',{maximumFractionDigits:1});
+  const activeIndex=jobs.indexOf(selected),active=result.details[activeIndex];
+  const activeClears=result.plan.filter((i,step)=>i===activeIndex&&(step<result.plan.length-1||s.clearLast)).length;
+  showTiming({...result.timing,singlePrintSeconds:loaded.printSeconds});sequenceView.setData(active.motion,activeClears);
+  for(const index of result.plan){const item=document.createElement('span');item.textContent=String.fromCharCode(65+index);item.title=jobs[index].name;$('queueOrder').append(item);}
+  $('estimate').textContent=`Ausgewählt: ${selected.name} · ${loaded.layers} Schichten · Vorschau dieser Datei. Zeit und Material oben beziehen sich auf die gesamte Warteschlange. Slicer-Zeit inklusive Druckstart, Bewegungszeit ohne Beschleunigung; Änderungen an Spülen und ursprünglichem Parken sind nicht exakt eingerechnet.`;
+  $('warnings').replaceChildren();const list=document.createElement('ul');for(const w of result.warnings){const li=document.createElement('li');li.textContent=w;list.append(li);}$('warnings').append(list);
+  $('preview').textContent=active.preview;$('exportGcode').disabled=busy||importing;$('export3mf').disabled=busy||importing||jobs.length!==1||!archiveEntries;status(`${jobs.length} Datei(en), ${total} Drucke. Parameterprüfung bestanden; Druckserie bereit.`);
+ }catch(e){clearTiming();status(e.message,true);$('preview').textContent='Bitte die angegebenen Parameter korrigieren.';$('warnings').replaceChildren();}
+}
+function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+function renderJobs(){
+ $('jobList').replaceChildren();
+ jobs.forEach((j,index)=>{
+  const card=document.createElement('div');card.className='job-card'+(j.id===selectedId?' selected':'');card.dataset.id=j.id;
+  const figure=document.createElement('figure'),img=document.createElement('img');img.src=j.thumb.url;img.alt='Vorschau: '+j.name;img.className='job-thumb';
+  const caption=document.createElement('figcaption');caption.textContent=j.thumb.kind;img.addEventListener('error',()=>{img.hidden=true;caption.textContent='Vorschaubild nicht lesbar';});figure.append(img,caption);
+  const content=document.createElement('div'),choose=document.createElement('button');choose.type='button';choose.className='job-select';choose.textContent=String.fromCharCode(65+index)+' · '+j.name;choose.setAttribute('aria-pressed',j.id===selectedId);choose.addEventListener('click',()=>selectJob(j.id));
+  const details=document.createElement('div');details.className='note';details.textContent=`${duration(j.info.printSeconds)} je Druck · ${j.info.grams.toLocaleString('de-DE')} g · Z${j.info.height} mm`;
+  const toolbar=document.createElement('div');toolbar.className='toolbar';const label=document.createElement('label');label.className='field';label.textContent='Anzahl';const count=document.createElement('input');count.type='number';count.min=1;count.max=100;count.step=1;count.value=j.count;count.className='job-count';count.setAttribute('aria-label','Anzahl für '+j.name);count.addEventListener('input',()=>{j.count=count.value===''?NaN:Number(count.value);if(j.id===selectedId)$('loops').value=count.value;refresh();});label.append(count);
+  const remove=document.createElement('button');remove.type='button';remove.textContent='Entfernen';remove.addEventListener('click',()=>{if(j.thumb.blob)URL.revokeObjectURL(j.thumb.url);jobs.splice(jobs.indexOf(j),1);if(selectedId===j.id)selectJob(jobs[0]?.id??null);else{renderJobs();refresh();}});
+  const up=document.createElement('button');up.type='button';up.textContent='↑';up.setAttribute('aria-label',j.name+' nach oben');up.disabled=index===0;up.addEventListener('click',()=>{[jobs[index-1],jobs[index]]=[jobs[index],jobs[index-1]];renderJobs();refresh();});
+  toolbar.append(label,up,remove);content.append(choose,details,toolbar);card.append(figure,content);$('jobList').append(card);
+ });
+ $('clearJobs').disabled=jobs.length===0||importing;
+}
+function selectJob(id){
+ selectedId=id;const j=selectedJob();loaded=j?.info??null;archiveEntries=j?.entries??null;archivePath=j?.path??null;sourceName=j?.name??'';
+ $('plate').replaceChildren();$('plateField').hidden=!j||j.paths.length<2;
+ if(j){$('loops').value=j.count;$('sweepZ').value=j.sweepZ;for(const name of j.paths){const option=document.createElement('option');option.value=name;option.textContent=name;$('plate').append(option);}$('plate').value=j.path;}
+ $('fileInfo').textContent=j?`Ausgewählt: ${j.name}${j.path?' · '+j.path:''}. Ausräumhöhe gilt nur für diese Datei; übrige Einstellungen gelten für alle.`:'Dateien gemeinsam auswählen oder nacheinander hinzufügen.';
+ renderJobs();refresh();
+}
+function choosePlate(){
+ const j=selectedJob();if(!j)return;
+ try{const path=$('plate').value,entry=j.entries.find(e=>e.name===path),info=Looper.analyze(new TextDecoder('utf-8',{fatal:true}).decode(entry.data));
+  const thumb=jobThumbnail(info,j.entries,path);if(j.thumb.blob)URL.revokeObjectURL(j.thumb.url);
+  Object.assign(j,{path,info,thumb,sweepZ:info.sweepSuggestion,hash:Archive.md5(entry.data)});selectJob(j.id);
+ }catch(e){$('plate').value=j.path;status(e.message,true);}
+}
+async function loadFiles(files){
+ if(importing||!files.length)return;importing=true;$('file').disabled=true;refresh();status('Dateien werden lokal eingelesen …');const errors=[];let firstAdded=null;
+ try{for(const file of Array.from(files)){
+  try{
+   if(jobs.length>=20)throw Error('Maximal 20 Dateien pro Warteschlange.');
+   if(file.size>100*1024*1024)throw Error('Maximale Eingabegröße je Datei: 100 MB.');
+   const buffer=await file.arrayBuffer();let entries=null,path=null,paths=[],data;
+   if(/\.3mf$/i.test(file.name)){
+    entries=await Archive.read(buffer);paths=entries.filter(e=>/\.gcode$/i.test(e.name)).map(e=>e.name);if(!paths.length)throw Error('Das 3MF enthält keinen geslicten G-Code.');path=paths[0];data=entries.find(e=>e.name===path).data;
+   }else if(/\.gcode$/i.test(file.name))data=new Uint8Array(buffer);else throw Error('Bitte .gcode oder .gcode.3mf verwenden.');
+   const bytes=entries?entries.reduce((n,e)=>n+e.data.length,0):data.length;
+   if(jobs.reduce((n,j)=>n+j.bytes,0)+bytes>250*1024*1024)throw Error('Geladene Dateien überschreiten zusammen 250 MB.');
+   const info=Looper.analyze(new TextDecoder('utf-8',{fatal:true}).decode(data));const thumb=jobThumbnail(info,entries,path);
+   const j={id:nextJobId++,name:file.name,entries,path,paths,info,thumb,hash:Archive.md5(data),bytes,count:jobs.length?1:Number($('loops').value)||1,sweepZ:info.sweepSuggestion};jobs.push(j);firstAdded??=j.id;
+  }catch(e){errors.push(file.name+': '+e.message);}
+ }}finally{importing=false;$('file').disabled=false;$('file').value='';selectJob(selectedId??firstAdded);if(errors.length)status('Nicht hinzugefügt:\n'+errors.join('\n')+'\nBereits geladene Dateien bleiben erhalten.',true);}
+}
+$('file').addEventListener('change',e=>loadFiles(e.target.files));$('plate').addEventListener('change',choosePlate);
+for(const event of ['dragover','dragenter'])$('drop').addEventListener(event,e=>{e.preventDefault();$('drop').classList.add('drag');});
+for(const event of ['dragleave','drop'])$('drop').addEventListener(event,e=>{e.preventDefault();$('drop').classList.remove('drag');});
+$('drop').addEventListener('drop',e=>loadFiles(e.dataTransfer.files));
+$('clearJobs').addEventListener('click',()=>{for(const j of jobs)if(j.thumb.blob)URL.revokeObjectURL(j.thumb.url);jobs.length=0;selectJob(null);});
+$('jobOrder').addEventListener('change',()=>{try{localStorage.setItem('cg-looper-order',$('jobOrder').value);}catch{}refresh();});
+$('settings').addEventListener('submit',e=>e.preventDefault());$('settings').addEventListener('input',refresh);
+async function exportFile(kind){
+ if(!result||busy||importing)return;if(kind==='3mf'&&(jobs.length!==1||!archiveEntries))return;
+ busy=true;const snapshot=result,entries=archiveEntries,path=archivePath,name=jobs.length===1?sourceName:'Druckwarteschlange';refresh();status('Export wird erstellt …');
+ try{
+  await new Promise(resolve=>setTimeout(resolve,30));
+  const stem=name.replace(/(?:\.gcode)?\.3mf$|\.gcode$/i,'')+`_${snapshot.settings.loops}x_CG-Looper`;
+  const blob=kind==='3mf'?Archive.pack(entries,path,snapshot.parts.join('')):new Blob(snapshot.parts,{type:'text/plain;charset=utf-8'});
+  download(blob,stem+(kind==='3mf'?'.gcode.3mf':'.gcode'));
+  busy=false;refresh();status(`Export erstellt (${(blob.size/1024/1024).toFixed(1)} MB). Download im Browser gestartet.`);
+ }catch(e){busy=false;refresh();status('Export fehlgeschlagen: '+e.message,true);}
+}
+$('exportGcode').addEventListener('click',()=>exportFile('gcode'));$('export3mf').addEventListener('click',()=>exportFile('3mf'));
+$('savePreset').addEventListener('click',()=>{try{const s=getSettings();if(jobs.length)Looper.generateQueue(jobs,s,$('jobOrder').value);else Looper.validate({maxZ:250,height:0,maxZSpeed:20,bytes:0},s);download(new Blob([JSON.stringify({version:2,settings:s,order:$('jobOrder').value,queue:jobs.map(j=>({hash:j.hash,name:j.name,path:j.path,count:j.count,sweepZ:j.sweepZ}))},null,2)],{type:'application/json'}),'CG-Looper-Profil.json');}catch(e){status(e.message,true);}});
+$('loadPreset').addEventListener('click',()=>$('presetFile').click());
+$('presetFile').addEventListener('change',async e=>{
+ try{
+  const f=e.target.files[0];if(!f)return;if(f.size>65536)throw Error('Profildatei zu groß.');const p=JSON.parse(await f.text());if(![1,2].includes(p.version)||!p.settings)throw Error('Unbekanntes Profilformat.');
+  const s=Looper.validate(loaded||{maxZ:250,height:0,maxZSpeed:20,bytes:0},p.settings);
+  if(p.version===2&&p.queue?.length){
+   if(!Array.isArray(p.queue)||p.queue.length!==jobs.length)throw Error('Bitte zuerst dieselben Druckdateien und Platten wie im Profil laden.');
+   const available=[...jobs],ordered=p.queue.map(q=>{const index=available.findIndex(j=>j.hash===q.hash&&j.path===q.path);if(index<0)throw Error('Eine passende Druckdatei/Platte fehlt: '+q.name);const j=available.splice(index,1)[0];return {...j,count:q.count,sweepZ:q.sweepZ};});
+   Looper.generateQueue(ordered,s,p.order);jobs.splice(0,jobs.length,...ordered);$('jobOrder').value=p.order;
+  }else if(p.version===2){if(!['alternating','batch'].includes(p.order))throw Error('Ungültige Reihenfolge im Profil.');$('jobOrder').value=p.order;}
+  setSettings(s);
+  if(p.version===1&&selectedJob()){selectedJob().count=s.loops;selectedJob().sweepZ=s.sweepZ;}
+  selectJob(selectedId);saveLocal(getSettings());
+ }catch(err){status('Profil: '+err.message,true);}finally{e.target.value='';}
+});
+$('reset').addEventListener('click',()=>{setSettings(Looper.defaults);applySweepSuggestion();saveLocal(getSettings());refresh();});
+$('applySweepSuggestion').addEventListener('click',()=>{applySweepSuggestion();refresh();});
+setSettings(Looper.defaults);try{const stored=JSON.parse(localStorage.getItem('cg-looper-v1'));if(stored){Looper.validate({maxZ:250,height:0,maxZSpeed:20,bytes:0},stored);setSettings(stored);}}catch{}
+try{const order=localStorage.getItem('cg-looper-order');if(['alternating','batch'].includes(order))$('jobOrder').value=order;}catch{}
+refresh();
+</script>
+</body></html>
